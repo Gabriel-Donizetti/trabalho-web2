@@ -24,8 +24,9 @@
                   <input type="text" class="form-control" id="CPF" aria-describedby="emailHelp" name="CPF"
                     placeholder="CPF">
                 </div>
+                  
                 <div class="mb-3">
-                  <input type="email" class="form-control" id="Email" aria-describedby="emailHelp"
+                  <input type="email" class="form-control" id="Email" aria-describedby="emailHelp" name="Email"
                     placeholder="E-mail">
                 </div>
                 
@@ -33,13 +34,23 @@
                   <input type="CEP" class="form-control" id="CEP" aria-describedby="emailHelp"
                     placeholder="CEP">
                 </div>
+                <button class="btn btn-color px-5 w-50 mb-3">Buscar</button>
 
+                <div class="mb-3">
+                  <input type="text" class="form-control" id="Rua" aria-describedby="emailHelp" name="Rua"
+                    placeholder="Rua">
+                </div>
+                  <div class="mb-3">
+                  <input type="text" class="form-control" id="Bairro" aria-describedby="emailHelp" name="Bairro"
+                    placeholder="Bairro">
+                </div>
+                
                 <div class="mb-3">
                   <input type="text" class="form-control" id="Telefone" aria-describedby="emailHelp" name="Telefone"
                     placeholder="Telefone">
                 </div>
                 <div class="mb-3">
-                  <input type="password" class="form-control" id="password" placeholder="Senha">
+                  <input type="password" class="form-control" id="password" placeholder="Senha" name="Senha">
                 </div>
                 <div class="text-center"><button type="submit" class="btn btn-color px-5 w-100">Cadastrar</button>
                 <div class="text-danger">Voce precisa logar para continuar</div></div>
