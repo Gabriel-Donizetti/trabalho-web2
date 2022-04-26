@@ -10,28 +10,13 @@ package br.com.beibe.beans;
  * @author Rafael Kulka
  */
 public class Endereco {
-
     private String rua;
-    private String numero;
+    private String número;
     private String complemento;
     private String bairro;
     private String cep;
     private String cidade;
     private String estado;
-
-    public Endereco() {
-
-    }
-
-    public Endereco(String rua, String numero, String complemento, String bairro, String cep, String cidade, String estado) {
-        this.rua = rua;
-        this.numero = numero;
-        this.complemento = complemento;
-        this.bairro = bairro;
-        this.cep = cep;
-        this.cidade = cidade;
-        this.estado = estado;
-    }
 
     public String getRua() {
         return rua;
@@ -41,12 +26,12 @@ public class Endereco {
         this.rua = rua;
     }
 
-    public String getNumero() {
-        return numero;
+    public String getNúmero() {
+        return número;
     }
 
-    public void setNumero(String numero) {
-        this.numero = numero;
+    public void setNúmero(String número) {
+        this.número = número;
     }
 
     public String getComplemento() {
@@ -88,5 +73,5 @@ public class Endereco {
     public void setEstado(String estado) {
         this.estado = estado;
     }
-
+    
 }
