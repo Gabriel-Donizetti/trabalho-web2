@@ -18,6 +18,19 @@ public class Endereco {
     private String cidade;
     private String estado;
 
+    public Endereco(String rua, String número, String complemento, String bairro, String cep, String cidade, String estado) {
+        this.rua = rua;
+        this.número = número;
+        this.complemento = complemento;
+        this.bairro = bairro;
+        this.cep = cep;
+        this.cidade = cidade;
+        this.estado = estado;
+    }
+
+    public Endereco() {
+    }
+
     public String getRua() {
         return rua;
     }

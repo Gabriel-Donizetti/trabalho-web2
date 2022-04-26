@@ -17,6 +17,18 @@ public class Usuario {
     private String telefone;
     private String senha;
 
+    public Usuario() {
+    }
+
+    public Usuario(String nome, String CPF, String email, Endereco endereco, String telefone, String senha) {
+        this.nome = nome;
+        this.CPF = CPF;
+        this.email = email;
+        this.endereco = endereco;
+        this.telefone = telefone;
+        this.senha = senha;
+    }
+
     public String getNome() {
         return nome;
     }
