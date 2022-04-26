@@ -8,7 +8,7 @@ package br.com.beibe.dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-//import exceptions.DAOException;
+import br.com.beibe.exception.DAOException;
 
 /**
  *
@@ -23,15 +23,15 @@ public class ConnectionFactory implements AutoCloseable {
 
     private Connection con = null;
 
-    public Connection getConnection() /*throws DAOException*/  {
+    public Connection getConnection() throws DAOException  {
         if (con == null) {
             try {
                 Class.forName(DRIVER);
                 con = DriverManager.getConnection(URL, LOGIN, SENHA);
             } catch (ClassNotFoundException e) {
-               //throw new DAOException("Driver do banco não encontrado: " + DRIVER, e);
+               throw new DAOException("Driver do banco não encontrado: " + DRIVER, e);
             } catch (SQLException e) {
-               // throw new DAOException("Erro conectando ao BD: " + URL + "/" + LOGIN + "/" + SENHA, e);
+                throw new DAOException("Erro conectando ao BD: " + URL + "/" + LOGIN + "/" + SENHA, e);
             }
         }
         return con;

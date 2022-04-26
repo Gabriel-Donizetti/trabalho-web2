@@ -9,6 +9,7 @@ import br.com.beibe.beans.Endereco;
 import br.com.beibe.beans.Usuario;
 import br.com.beibe.dao.ConnectionFactory;
 import br.com.beibe.dao.UsuarioDAO;
+import br.com.beibe.exception.DAOException;
 import br.com.beibe.model.Autenticacao;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -33,14 +34,21 @@ public class autenticacao extends HttpServlet {
      *
      * @param request servlet request
      * @param response servlet response
+     * @throws javax.servlet.ServletException
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String method = (String) request.getParameter("method");
         if (method.equals("login")) {
-            Usuario user = Autenticacao.login(request.getParameter("Email"), request.getParameter("Senha"));
-
+            Usuario user = null;
+            try{
+                user = Autenticacao.login(request.getParameter("Email"), request.getParameter("Senha"));
+            }catch (DAOException ex) {
+                 request.setAttribute("erro", "Erro ao logar " + ex);
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+                dispatcher.forward(request, response);
+            }
             if (user != null) {
                 HttpSession session = request.getSession();
                 session.setAttribute("usuario", user);
@@ -71,7 +79,15 @@ public class autenticacao extends HttpServlet {
                     request.getParameter("Senha")
             );
             //if(Autenticacao.validarUser(user).isEmpty()){
-            Usuario usuario = Autenticacao.register(user);
+            Usuario usuario = null;
+            try {
+                usuario = Autenticacao.register(user);
+            } catch (DAOException e) {
+                request.setAttribute("erro", "usuário não cadastrado. " + e);
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/register.jsp");
+                dispatcher.forward(request, response);
+            }
+
             if (usuario != null) {
                 HttpSession session = request.getSession();
                 session.setAttribute("usuario", usuario);

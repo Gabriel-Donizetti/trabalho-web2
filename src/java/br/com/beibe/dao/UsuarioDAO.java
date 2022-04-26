@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import br.com.beibe.exception.DAOException;
 
 /**
  *
@@ -21,14 +22,14 @@ public class UsuarioDAO {
     private static final String QUERY_BUSCAR_TODOS = "SELECT * FROM BEIBE.usuario WHERE email = ? AND senha = ?";
     private Connection con = null;
 
-    public UsuarioDAO(Connection con) /*throws DAOException*/ {
+    public UsuarioDAO(Connection con) throws DAOException {
         if (con == null) {
-            //throw new DAOException("Conexão nula ao criar PessoaDAO.");
+            throw new DAOException("Conexão nula ao criar PessoaDAO.");
         }
         this.con = con;
     }
 
-    public void inserir(Usuario u) /*throws DAOException*/ {
+    public void inserir(Usuario u) throws DAOException {
         try (PreparedStatement st = con.prepareStatement(QUERY_INSERIR)) {
             st.setString(1, u.getNome());
             st.setString(2, u.getCPF());
@@ -40,7 +41,7 @@ public class UsuarioDAO {
             st.executeUpdate();
 
         } catch (SQLException e) {
-            //throw new DAOException("Erro inserindo pessoa: "                    + QUERY_INSERIR                    + "/ " + p.toString(), e);
+            throw new DAOException("Erro inserindo usuário: " + QUERY_INSERIR, e);
         }
 
     }
@@ -53,13 +54,13 @@ public class UsuarioDAO {
 
             ResultSet rs = st.executeQuery();
 
-            if(rs.next()){
-            u.setCPF(rs.getString("cpf"));
-            u.setEmail(email);
-            u.setNome(rs.getString("nome"));
-            u.setTelefone(rs.getString("telefone"));
-            //p.setId(rs.getInt("id_pessoa"));  
-            }else {
+            if (rs.next()) {
+                u.setCPF(rs.getString("cpf"));
+                u.setEmail(email);
+                u.setNome(rs.getString("nome"));
+                u.setTelefone(rs.getString("telefone"));
+                //p.setId(rs.getInt("id_pessoa"));  
+            } else {
                 return null;
             }
             return u;
