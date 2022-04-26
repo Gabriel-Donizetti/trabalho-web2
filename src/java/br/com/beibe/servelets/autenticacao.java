@@ -5,9 +5,11 @@
  */
 package br.com.beibe.servelets;
 
+import br.com.beibe.beans.Endereco;
 import br.com.beibe.beans.Usuario;
 import br.com.beibe.dao.ConnectionFactory;
 import br.com.beibe.dao.UsuarioDAO;
+import br.com.beibe.model.Autenticacao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -37,41 +39,51 @@ public class autenticacao extends HttpServlet {
             throws ServletException, IOException {
         String method = (String) request.getParameter("method");
         if (method.equals("login")) {
+            Usuario user = Autenticacao.login(request.getParameter("Email"), request.getParameter("Senha"));
 
-            try (ConnectionFactory factory = new ConnectionFactory()) {
-                UsuarioDAO dao = new UsuarioDAO(factory.getConnection());
-                Usuario user = dao.buscarUser(request.getParameter("Email"), request.getParameter("Senha"));
-                if (user != null) {
-                    HttpSession session = request.getSession();
-                    session.setAttribute("usuario", user.getNome());
-                    response.sendRedirect(request.getContextPath() + "/Gerente/ListagemAtendimentos.jsp");
-
-                } else {
-                    request.setAttribute("erro", "usuário ou senha inválidos.");
-                    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
-                    dispatcher.forward(request, response);
-                }
-
-            } catch (Exception exc) {
-                request.setAttribute("erro", "erro desconhecido.");
+            if (user != null) {
+                HttpSession session = request.getSession();
+                session.setAttribute("usuario", user);
+                response.sendRedirect(request.getContextPath() + "/Gerente/ListagemAtendimentos.jsp");
+            } else {
+                request.setAttribute("erro", "usuário ou senha inválidos.");
                 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
                 dispatcher.forward(request, response);
             }
+
         } else if (method.equals("register")) {
-            try (ConnectionFactory factory = new ConnectionFactory()) {
-                Usuario user = new Usuario();
-                user.setEmail(request.getParameter("Email"));
-                user.setSenha(request.getParameter("Senha"));
-                user.setNome(request.getParameter("Nome"));
-                user.setCPF("");
-                user.setTelefone("");
-                UsuarioDAO dao = new UsuarioDAO(factory.getConnection());
+            Endereco endereco = new Endereco(
+                    request.getParameter("Rua"),
+                    request.getParameter("Numero"),
+                    request.getParameter("Complemento"),
+                    request.getParameter("Bairro"),
+                    request.getParameter("CEP"),
+                    request.getParameter("Cidade"),
+                    request.getParameter("Estado")
+            );
 
-                dao.inserir(user);
-
-            } catch (Exception ex) {
-                //out.println(ex.toString);
+            Usuario user = new Usuario(
+                    request.getParameter("Nome"),
+                    request.getParameter("CPF"),
+                    request.getParameter("Email"),
+                    endereco,
+                    request.getParameter("Telefone"),
+                    request.getParameter("Senha")
+            );
+            //if(Autenticacao.validarUser(user).isEmpty()){
+            Usuario usuario = Autenticacao.register(user);
+            if (usuario != null) {
+                HttpSession session = request.getSession();
+                session.setAttribute("usuario", usuario);
+                response.sendRedirect(request.getContextPath() + "/Gerente/ListagemAtendimentos.jsp");
+            } else {
+                request.setAttribute("erro", "usuário não cadastrado.");
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+                dispatcher.forward(request, response);
             }
+
+        } else if (method.equals("cep")) {
+
         } else {
             //erro
         }

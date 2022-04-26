@@ -10,12 +10,24 @@ package br.com.beibe.beans;
  * @author Rafael Kulka
  */
 public class Usuario {
+
     private String nome;
     private String CPF;
     private String email;
     private Endereco endereco;
     private String telefone;
     private String senha;
+    
+    public Usuario(){}
+ 
+    public Usuario(String nome, String cpf, String email, Endereco endereco, String telefone, String senha) {
+        this.nome = nome;
+        this.CPF = cpf;
+        this.email = email;
+        this.endereco = endereco;
+        this.telefone = telefone;
+        this.senha = senha;
+    }
 
     public String getNome() {
         return nome;
@@ -64,5 +76,5 @@ public class Usuario {
     public void setSenha(String senha) {
         this.senha = senha;
     }
-    
+
 }
