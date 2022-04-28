@@ -11,7 +11,7 @@ package br.com.beibe.beans;
  */
 public class Endereco {
     private String rua;
-    private String número;
+    private String numero;
     private String complemento;
     private String bairro;
     private String cep;
@@ -20,7 +20,7 @@ public class Endereco {
 
     public Endereco(String rua, String numero, String complemento, String bairro, String cep, String cidade, String estado) {
         this.rua = rua;
-        this.número = numero;
+        this.numero = numero;
         this.complemento = complemento;
         this.bairro = bairro;
         this.cep = cep;
@@ -40,11 +40,11 @@ public class Endereco {
     }
 
     public String getNúmero() {
-        return número;
+        return numero;
     }
 
     public void setNúmero(String número) {
-        this.número = número;
+        this.numero = número;
     }
 
     public String getComplemento() {
