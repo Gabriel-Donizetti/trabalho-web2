@@ -1,23 +1,20 @@
-<%-- 
-    Document   : FuncionarioIndex
-    Created on : 20/04/2022, 13:58:56
-    Author     : Iury
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="pt-br">
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<<html lang="pt-br">
    <head>
       <meta charset="UTF-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Funcionario</title>
       <link rel="stylesheet" href="style.css">
    </head>
    <body id="body-pd">
       <header class="header" id="header">
          <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
-         <div class="header_img"> <img src="https://i.imgur.com/hczKIze.jpg" alt="Sua foto" title="JoÃ£ozinho very crazy"> </div>
+         <div class="header_img"> <img src="https://i.imgur.com/hczKIze.jpg" alt="Sua foto" title="Joãozinho very crazy"> </div>
       </header>
       <div class="l-navbar" id="nav-bar">
          <nav class="nav">
@@ -39,7 +36,7 @@
                <a href="ResolucaoAtendimento.jsp" class="nav_link">
                   <i class='bx bx-bookmark nav_icon'></i>
                   <span class="nav_name"><img src="icon/resolucaoatendimento.png" width="25" class="inverter"
-                        height="25" alt="ResoluÃ§Ã£o Atendimentos" title="ResoluÃ§Ã£o Atendimentos"></span>
+                        height="25" alt="Resolução Atendimentos" title="Resolução Atendimentos"></span>
                </a>
                <a href="ListagemAtendimentos.jsp" class="nav_link">
                   <i class='bx bx-folder nav_icon'></i>

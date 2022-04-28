@@ -25,33 +25,39 @@
       </header>
       <div class="l-navbar" id="nav-bar">
          <nav class="nav">
-            <div>
-               <a href="#" class="nav_logo"> 
-                  <i class='bx bx-layer nav_logo-icon'></i> 
-                  <span class="nav_logo-name">BEIBE</span> </a>
-              <div class="nav_list"> 
-                   <a href="cadastroProduto.html" class="nav_link"> 
-                       <i class='bx bx-user nav_icon'></i> 
-                       <span class="nav_name"><img src="icon/addProduto.png" width="25" class="inverter" height="25" alt="Cadastro de Produtos" title="Cadastro de Produtos"></span> 
-                   </a> 
-                   <a href="cadastroCategoria.html" class="nav_link">
-                        <i class='bx bx-message-square-detail nav_icon'></i> 
-                        <span class="nav_name"><img src="icon/addCategoria.png" width="25" class="inverter" height="25" alt="Cadastro de Categorias" title="Cadastro de Categorias"></span> 
-                   </a> 
-                   <a href="resolucaoAtendimento.html" class="nav_link"> 
-                       <i class='bx bx-bookmark nav_icon'></i> 
-                       <span class="nav_name"><img src="icon/resolucaoatendimento.png" width="25" class="inverter" height="25" alt="Resolução Atendimentos" title="Resolução Atendimentos"></span> 
-                   </a> 
-                   <a href="listagemAtendimentos.html" class="nav_link"> 
-                       <i class='bx bx-folder nav_icon'></i> 
-                       <span class="active nav_name"><img src="icon/atendimento.png" width="25" class="inverter" height="25" alt="Listagem de todos os atendimentos" title="Listagem de todos os atendimentos"></span> 
-                   </a>
-                   <a href="listagemAtendimentosAberto.html" class="nav_link"> 
-                    <i class='bx bx-folder nav_icon'></i> 
-                    <span class="nav_name"><img src="icon/atendimentoAberto.png" width="25" class="inverter" height="25" alt="Listagem de todos os atendimentos" title="Listagem de todos os atendimentos"></span> 
-                </a>   
-               </div>
+          <div>
+            <a href="index.jsp" class="nav_logo">
+               <i class='bx bx-layer nav_logo-icon'></i>
+               <span class="nav_logo-name">BEIBE</span> </a>
+            <div class="nav_list">
+               <a href="CadastroProduto.jsp" class="nav_link">
+                  <i class='bx bx-user nav_icon'></i>
+                  <span class="nav_name"><img src="icon/addProduto.png" width="25" class="inverter" height="25"
+                        alt="Cadastro de Produtos" title="Cadastro de Produtos"></span>
+               </a>
+               <a href="CadastroCategoria.jsp" class="nav_link">
+                  <i class='bx bx-message-square-detail nav_icon'></i>
+                  <span class="active nav_name"><img src="icon/addCategoria.png" width="25" class="inverter" height="25"
+                        alt="Cadastro de Categorias" title="Cadastro de Categorias"></span>
+               </a>
+               <a href="ResolucaoAtendimento.jsp" class="nav_link">
+                  <i class='bx bx-bookmark nav_icon'></i>
+                  <span class="nav_name"><img src="icon/resolucaoatendimento.png" width="25" class="inverter"
+                        height="25" alt="Resolução Atendimentos" title="Resolução Atendimentos"></span>
+               </a>
+               <a href="ListagemAtendimentos.jsp" class="nav_link">
+                  <i class='bx bx-folder nav_icon'></i>
+                  <span class="nav_name"><img src="icon/atendimento.png" width="25" class="inverter" height="25"
+                        alt="Listagem de todos os atendimentos" title="Listagem de todos os atendimentos"></span>
+               </a>
+               <a href="ListagemAtendimentosAberto.jsp" class="nav_link">
+                  <i class='bx bx-folder nav_icon'></i>
+                  <span class="nav_name"><img src="icon/atendimentoAberto.png" width="25" class="inverter" height="25"
+                        alt="Listagem de todos os atendimentos" title="Listagem de todos os atendimentos"></span>
+               </a>
             </div>
+
+         </div>
             <a href="#" class="nav_link"> 
                 <i class='bx bx-log-out nav_icon'></i> 
                 <span class="nav_name"><img src="icon/Logout.png" width="25" class="inverter" height="25" alt="Logout" title="Logout"></span> 

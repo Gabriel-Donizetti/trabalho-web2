@@ -27,7 +27,7 @@
          <div class="l-navbar" id="nav-bar">
             <nav class="nav">
                <div>
-                  <a href="#" class="nav_logo"> 
+                  <a href="index.jsp" class="nav_logo"> 
                   <i class='bx bx-layer nav_logo-icon'></i> 
                   <span class="nav_logo-name">BEIBE</span> </a>
                   <div class="active nav_list"> 
