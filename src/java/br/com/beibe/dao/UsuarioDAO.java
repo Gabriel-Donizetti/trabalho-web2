@@ -5,6 +5,7 @@
  */
 package br.com.beibe.dao;
 
+import br.com.beibe.beans.Endereco;
 import br.com.beibe.beans.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,7 +20,7 @@ import br.com.beibe.exception.DAOException;
 public class UsuarioDAO {
 
     private static final String QUERY_INSERIR = "INSERT INTO BEIBE.usuario (nome, cpf, email, telefone, senha, tipo) VALUES (?, ?,?,?, ? ,?)";
-    private static final String QUERY_BUSCAR_TODOS = "SELECT * FROM BEIBE.usuario WHERE email = ? AND senha = ?";
+    private static final String QUERY_BUSCAR_TODOS = "SELECT * FROM BEIBE.usuario T0 INNER JOIN BEIBE.endereco T1 ON T0.endereco = T1.id WHERE email = ? AND senha = ?";
     private Connection con = null;
 
     public UsuarioDAO(Connection con) throws DAOException {
@@ -36,7 +37,7 @@ public class UsuarioDAO {
             st.setString(3, u.getEmail());
             st.setString(4, u.getTelefone());
             st.setString(5, u.getSenha());
-            st.setInt(6, 1);
+            st.setInt(6, 1); //Tipo é 1 == cliente.
 
             st.executeUpdate();
 
@@ -47,7 +48,7 @@ public class UsuarioDAO {
     }
 
     public Usuario buscarUser(String email, String senha) {
-        Usuario u = new Usuario();
+        
         try (PreparedStatement st = con.prepareStatement(QUERY_BUSCAR_TODOS)) {
             st.setString(1, email);
             st.setString(2, senha);
@@ -55,15 +56,30 @@ public class UsuarioDAO {
             ResultSet rs = st.executeQuery();
 
             if (rs.next()) {
-                u.setCPF(rs.getString("cpf"));
-                u.setEmail(email);
-                u.setNome(rs.getString("nome"));
-                u.setTelefone(rs.getString("telefone"));
-                //p.setId(rs.getInt("id_pessoa"));  
+                
+                Endereco endereco = new Endereco(
+                        rs.getString("rua"),
+                        rs.getString("numero"),
+                        rs.getString("complemento"),
+                        rs.getString("bairro"),
+                        rs.getString("cep"),
+                        rs.getString("cidade"),
+                        rs.getString("estado")
+                );
+                
+                Usuario user = new Usuario(
+                        rs.getString("nome"),
+                        rs.getString("cpf"),
+                        email,
+                        endereco,
+                        rs.getString("telefone"),
+                        rs.getInt("tipo")
+                );
+                
+                return user;
             } else {
                 return null;
             }
-            return u;
         } catch (SQLException e) {
             return null;
         }

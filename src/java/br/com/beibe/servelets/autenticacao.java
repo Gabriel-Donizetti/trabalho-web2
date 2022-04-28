@@ -45,7 +45,7 @@ public class autenticacao extends HttpServlet {
             try{
                 user = Autenticacao.login(request.getParameter("Email"), request.getParameter("Senha"));
             }catch (DAOException ex) {
-                 request.setAttribute("erro", "Erro ao logar " + ex);
+                request.setAttribute("erro", "Erro ao logar " + ex);
                 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
                 dispatcher.forward(request, response);
             }
@@ -87,17 +87,26 @@ public class autenticacao extends HttpServlet {
                 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/register.jsp");
                 dispatcher.forward(request, response);
             }
-
             if (usuario != null) {
                 HttpSession session = request.getSession();
                 session.setAttribute("usuario", usuario);
-                response.sendRedirect(request.getContextPath() + "/Gerente/ListagemAtendimentos.jsp");
+                if(usuario.getTipo() == 1){ //Cliente
+                    response.sendRedirect(request.getContextPath() + "/Cliente/Index.jsp");
+                }
+                if(usuario.getTipo() == 2){ // Funcionario 
+                    response.sendRedirect(request.getContextPath() + "/Funcionario/Index.jsp");
+                }
+                if(usuario.getTipo() == 3){ //Gerente 
+                    response.sendRedirect(request.getContextPath() + "/Gerente/Index.jsp");
+                }
+                
             } else {
                 request.setAttribute("erro", "usuário não cadastrado.");
                 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
                 dispatcher.forward(request, response);
             }
-
+            
+            
         } else if (method.equals("cep")) {
 
         } else {
