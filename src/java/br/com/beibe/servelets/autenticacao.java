@@ -103,11 +103,19 @@ public class autenticacao extends HttpServlet {
             
             
         } else if (method.equals("cep")) {
+            
 
-        } else {
+        } else if (method.equals("logout")) {
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.removeAttribute("usuario");    
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/register.jsp");
+            dispatcher.forward(request, response);
+            }
+          }
+            else {
             //erro
-        }
-
+        }   
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
