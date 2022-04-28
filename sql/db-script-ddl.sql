@@ -23,12 +23,14 @@ CREATE TABLE endereco
 CREATE TABLE usuario (
 	id BIGINT AUTO_INCREMENT PRIMARY KEY,
 	nome VARCHAR(100),
-	cpf VARCHAR(11),
-	email VARCHAR(100),
+	cpf VARCHAR(11) UNIQUE,
+	email VARCHAR(100) UNIQUE,
 	telefone VARCHAR(9),
 	senha VARCHAR(255),
 	tipo INT,
 	endereco BIGINT,
 	FOREIGN KEY (tipo) REFERENCES tipo(id),
 	FOREIGN KEY (endereco ) REFERENCES endereco (id)
+
+
 );
