@@ -16,8 +16,17 @@ public class Usuario {
     private Endereco endereco;
     private String telefone;
     private String senha;
+    private int tipo;
 
     public Usuario() {
+    }
+
+    public int getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(int tipo) {
+        this.tipo = tipo;
     }
 
     public Usuario(String nome, String CPF, String email, Endereco endereco, String telefone, String senha) {
@@ -27,8 +36,19 @@ public class Usuario {
         this.endereco = endereco;
         this.telefone = telefone;
         this.senha = senha;
+        this.tipo = tipo;
     }
 
+    
+    public Usuario(String nome, String CPF, String email, Endereco endereco, String telefone, int tipo) {
+        this.nome = nome;
+        this.CPF = CPF;
+        this.email = email;
+        this.endereco = endereco;
+        this.telefone = telefone;
+    }
+
+    
     public String getNome() {
         return nome;
     }
