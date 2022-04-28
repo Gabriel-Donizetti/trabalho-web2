@@ -22,7 +22,7 @@
       <div class="l-navbar" id="nav-bar">
          <nav class="nav">
          <div>
-            <a href="index.jsp" class="nav_logo">
+            <a href="#" class="nav_logo">
                <i class='bx bx-layer nav_logo-icon'></i>
                <span class="nav_logo-name">BEIBE</span> </a>
             <div class="nav_list">
@@ -61,7 +61,7 @@
          </nav>
       </div>
       <div class="height-100 bg-light">
-         <h4>Opa Deu</h4>
+         <h4>Main Components</h4>
       </div>
       <script src="script.js"></script>
 </html>
