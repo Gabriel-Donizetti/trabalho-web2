@@ -52,7 +52,16 @@ public class autenticacao extends HttpServlet {
             if (user != null) {
                 HttpSession session = request.getSession();
                 session.setAttribute("usuario", user);
-                response.sendRedirect(request.getContextPath() + "/Gerente/ListagemAtendimentos.jsp");
+                 if(user.getTipo() == 1){ //Cliente
+                    response.sendRedirect(request.getContextPath() + "/Cliente/Index.jsp");
+                }
+                if(user.getTipo() == 2){ // Funcionario 
+                    response.sendRedirect(request.getContextPath() + "/Funcionario/Index.jsp");
+                }
+                if(user.getTipo() == 3){ //Gerente 
+                    response.sendRedirect(request.getContextPath() + "/Gerente/Index.jsp");
+                }
+                //response.sendRedirect(request.getContextPath() + "/Gerente/ListagemAtendimentos.jsp");
             } else {
                 request.setAttribute("erro", "usuário ou senha inválidos.");
                 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
@@ -79,32 +88,23 @@ public class autenticacao extends HttpServlet {
                     request.getParameter("Senha")
             );
             //if(Autenticacao.validarUser(user).isEmpty()){
-            Usuario usuario = null;
+            //Usuario usuario = null;
             try {
-                usuario = Autenticacao.register(user);
+                Autenticacao.register(user);
+                 HttpSession session = request.getSession();
+                session.setAttribute("usuario", user);             
             } catch (DAOException e) {
                 request.setAttribute("erro", "usuário não cadastrado. " + e);
                 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/register.jsp");
                 dispatcher.forward(request, response);
             }
-            if (usuario != null) {
-                HttpSession session = request.getSession();
-                session.setAttribute("usuario", usuario);
-                if(usuario.getTipo() == 1){ //Cliente
-                    response.sendRedirect(request.getContextPath() + "/Cliente/Index.jsp");
-                }
-                if(usuario.getTipo() == 2){ // Funcionario 
-                    response.sendRedirect(request.getContextPath() + "/Funcionario/Index.jsp");
-                }
-                if(usuario.getTipo() == 3){ //Gerente 
-                    response.sendRedirect(request.getContextPath() + "/Gerente/Index.jsp");
-                }
+           
+            //} else {
+               // request.setAttribute("erro", "usuário não cadastrado.");
+                //RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+                //dispatcher.forward(request, response);
                 
-            } else {
-                request.setAttribute("erro", "usuário não cadastrado.");
-                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
-                dispatcher.forward(request, response);
-            }
+            //}
             
             
         } else if (method.equals("cep")) {

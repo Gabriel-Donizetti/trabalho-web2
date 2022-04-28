@@ -40,9 +40,13 @@ public class UsuarioDAO {
             st.setInt(6, 1); //Tipo é 1 == cliente.
 
             st.executeUpdate();
+             //throw new DAOException(st.toString());
 
-        } catch (SQLException e) {
-            throw new DAOException("Erro inserindo usuário: " + QUERY_INSERIR, e);
+        } catch(org.h2.jdbc.JdbcSQLIntegrityConstraintViolationException e){
+            throw new DAOException("Usuário já cadastrado");
+        }
+        catch (SQLException e) {
+            throw new DAOException(e.toString());
         }
 
     }

@@ -70,8 +70,8 @@
                                 <input type="password" class="form-control" id="password" placeholder="Senha" name="Senha">
                             </div>
                             <div class="text-center"><button type="submit" class="btn btn-color px-5 w-100">Cadastrar</button>
-                                <div class="text-danger">Voce precisa logar para continuar</div></div>
-
+                                
+                            <div class="text-danger">Erro: <% out.println(request.getAttribute("erro"));%> ${param.erro}</div></div>
                             <div id="emailHelp" class="form-text text-center mt-5 mb-5 text-dark">Já tem uma conta? <a href="index.jsp" class="text-dark fw-bold">Login</a>
                             </div>
                         </form>
