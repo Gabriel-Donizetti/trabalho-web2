@@ -5,14 +5,11 @@
  */
 package br.com.beibe.servelets;
 
-import br.com.beibe.beans.Endereco;
+
 import br.com.beibe.beans.Usuario;
-import br.com.beibe.dao.ConnectionFactory;
-import br.com.beibe.dao.UsuarioDAO;
 import br.com.beibe.exception.DAOException;
 import br.com.beibe.model.Autenticacao;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -69,7 +66,14 @@ public class autenticacao extends HttpServlet {
             }
 
         } else if (method.equals("register")) {
-            Endereco endereco = new Endereco(
+
+            Usuario user = new Usuario(
+                    request.getParameter("Nome"),
+                    request.getParameter("CPF"),
+                    request.getParameter("Email"),
+                    request.getParameter("Telefone"),
+                    1,
+                    request.getParameter("Senha"),
                     request.getParameter("Rua"),
                     request.getParameter("Numero"),
                     request.getParameter("Complemento"),
@@ -77,15 +81,6 @@ public class autenticacao extends HttpServlet {
                     request.getParameter("CEP"),
                     request.getParameter("Cidade"),
                     request.getParameter("Estado")
-            );
-
-            Usuario user = new Usuario(
-                    request.getParameter("Nome"),
-                    request.getParameter("CPF"),
-                    request.getParameter("Email"),
-                    endereco,
-                    request.getParameter("Telefone"),
-                    request.getParameter("Senha")
             );
             //if(Autenticacao.validarUser(user).isEmpty()){
             //Usuario usuario = null;

@@ -21,7 +21,7 @@ public class Autenticacao {
             UsuarioDAO dao = new UsuarioDAO(factory.getConnection());
             retorno = dao.buscarUser(email, senha);
         } catch (Exception exc) {
-            throw new DAOException("Não foi localizer o usuário.");
+            throw new DAOException("Usuário não localizado.");
         }
         return retorno;
     }
