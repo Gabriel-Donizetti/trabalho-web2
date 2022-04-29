@@ -1,6 +1,6 @@
 <%-- 
-    Document   : erro
-    Created on : 05/04/2022, 16:40:32
+    Document   : CadastroFuncionáriosGerentes
+    Created on : 14/04/2022, 14:47:47
     Author     : Rafael Kulka
 --%>
 
@@ -9,11 +9,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Error</title>
-        <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <title>Error</title>        
         <link href="style/erro.css" rel="stylesheet">
-        <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     </head>
 
     <body>
@@ -27,8 +25,8 @@
                             ${requestScope.Error}
                         </div>
                         <div class="error-actions">
-                            <a href="http://www.jquery2dotnet.com" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-home"></span>
-                                Take Me Home </a><a href="http://www.jquery2dotnet.com" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-envelope"></span> Contact Support </a>
+                            <a href="/index.jsp" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-home"></span>
+                                Take Me Home </a><a href="#" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-envelope"></span> Contact Support </a>
                         </div>
                     </div>
                 </div>
