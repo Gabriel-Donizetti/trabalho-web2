@@ -3,7 +3,7 @@
     Created on : 14/04/2022, 14:48:20
     Author     : Rafael Kulka
 --%>
-
+<%@page isELIgnored="false"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -27,7 +27,7 @@
         <div class="l-navbar" id="nav-bar">
            <nav class="nav">
               <div>
-                 <a href="index.jsp" class="nav_logo"> 
+                 <a href="#" class="nav_logo"> 
                      <i class='bx bx-layer nav_logo-icon'></i> 
                      <span class="nav_logo-name">BEIBE</span> </a>
                  <div class="nav_list"> 
