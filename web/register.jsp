@@ -1,5 +1,6 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -21,7 +22,7 @@
                                        placeholder="Nome">
                             </div>
                             <div class="mb-3">
-                                <input type="text" class="form-control" id="CPF" aria-describedby="emailHelp" name="CPF"
+                                <input type="text" class="form-control" id="CPF" aria-describedby="emailHelp" name="CPF" onkeydown="javascript: fMasc( this, mCPF );"
                                        placeholder="CPF">
                             </div>
 
@@ -69,16 +70,16 @@
                             <div class="mb-3">
                                 <input type="password" class="form-control" id="password" placeholder="Senha" name="Senha">
                             </div>
-                            <div class="text-center"><button type="submit" class="btn btn-color px-5 w-100">Cadastrar</button>
+                            <div class="text-center"><button type="submit" class="btn btn-color px-5 w-100" onclick="ValidaCPF();">Cadastrar</button>
                                 
                             <div class="text-danger">Erro: <% out.println(request.getAttribute("erro"));%> ${param.erro}</div></div>
-                            <div id="emailHelp" class="form-text text-center mt-5 mb-5 text-dark">Já tem uma conta? <a href="index.jsp" class="text-dark fw-bold">Login</a>
+                            <div id="emailHelp" class="form-text text-center mt-5 mb-5 text-dark">JÃ¡ tem uma conta? <a href="index.jsp" class="text-dark fw-bold">Login</a>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-
+        <script src="script.js"></script>
     </body>
 </html>
