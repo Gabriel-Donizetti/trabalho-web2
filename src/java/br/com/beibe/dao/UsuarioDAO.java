@@ -18,8 +18,8 @@ import br.com.beibe.exception.DAOException;
  */
 public class UsuarioDAO {
 
-    private static final String QUERY_INSERIR_USER = "INSERT INTO BEIBE.usuario (nome, cpf, email, telefone, senha, tipo, rua, numero, complemento, bairro, cep, cidade, estado) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
-    private static final String QUERY_BUSCAR = "SELECT * FROM BEIBE.usuario WHERE email = ? AND senha = ?";
+    private static final String QUERY_INSERIR_USER = "INSERT INTO BEIBE.usuario (nome, cpf, email, telefone, senha, tipo, rua, numero, complemento, bairro, cep, cidade, estado) VALUES (?,?,?,?,HASH('MD5', ?) ,?,?,?,?,?,?,?,?)";
+    private static final String QUERY_BUSCAR = "SELECT * FROM BEIBE.usuario WHERE email = ? AND senha = CAST(HASH('MD5', ?) AS VARCHAR)";
     private Connection con = null;
 
     public UsuarioDAO(Connection con) throws DAOException {

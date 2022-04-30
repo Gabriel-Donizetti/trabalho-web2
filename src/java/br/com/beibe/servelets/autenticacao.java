@@ -60,15 +60,14 @@ public class autenticacao extends HttpServlet {
                 HttpSession session = request.getSession();
                 session.setAttribute("usuario", user);
                 if (user.getTipo() == 1) { //Cliente
-                    response.sendRedirect(request.getContextPath() + "/Cliente/Index.jsp");
+                    response.sendRedirect(request.getContextPath() + "/Cliente/index.jsp");
                 }
                 if (user.getTipo() == 2) { // Funcionario 
-                    response.sendRedirect(request.getContextPath() + "/Funcionario/Index.jsp");
+                    response.sendRedirect(request.getContextPath() + "/Funcionario/index.jsp");
                 }
                 if (user.getTipo() == 3) { //Gerente 
-                    response.sendRedirect(request.getContextPath() + "/Gerente/Index.jsp");
+                    response.sendRedirect(request.getContextPath() + "/Gerente/index.jsp");
                 }
-                //response.sendRedirect(request.getContextPath() + "/Gerente/ListagemAtendimentos.jsp");
             } else {
                 request.setAttribute("erro", "usuário ou senha inválidos.");
                 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
@@ -93,7 +92,7 @@ public class autenticacao extends HttpServlet {
                     request.getParameter("Estado")
             );
             //if(Autenticacao.validarUser(user).isEmpty()){
-            //Usuario usuario = null;
+            
             try {
                 Autenticacao.register(user);
                 HttpSession session = request.getSession();
