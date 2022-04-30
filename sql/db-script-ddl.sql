@@ -39,8 +39,7 @@ CREATE TABLE Produto (
 );
 
 CREATE TABLE TipoAtendimento(
-	id BIGINT AUTO_INCREMENT PRIMARY KEY,
-	nome VARCHAR(100)
+	nome VARCHAR(100) PRIMARY KEY
 );
 
 CREATE TABLE Atendimento(
@@ -48,10 +47,10 @@ CREATE TABLE Atendimento(
 	Cliente VARCHAR(11),
 	Situacao VARCHAR(50),
 	Produto VARCHAR(100),
-	TipoAtendimento BIGINT,
+	TipoAtendimento VARCHAR(100),
 	Descricao VARCHAR(255),
 	Solucao VARCHAR(255),
-	FOREIGN KEY (TipoAtendimento) REFERENCES TipoAtendimento(id),
+	FOREIGN KEY (TipoAtendimento) REFERENCES TipoAtendimento(nome),
 	FOREIGN KEY (Produto) REFERENCES Produto(nome),
 	FOREIGN KEY (Cliente) REFERENCES Usuario(cpf)
 );
