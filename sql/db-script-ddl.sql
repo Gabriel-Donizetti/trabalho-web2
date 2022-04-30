@@ -9,9 +9,8 @@ CREATE TABLE tipo (id INT PRIMARY KEY, nome VARCHAR(100));
 INSERT INTO tipo VALUES (1, 'Cliente'), (2, 'Funcionario'), (3, 'Gerente');
 
 CREATE TABLE Usuario (
-	id BIGINT AUTO_INCREMENT PRIMARY KEY,
+	cpf VARCHAR(11) PRIMARY KEY,
 	nome VARCHAR(100),
-	cpf VARCHAR(11) UNIQUE,
 	email VARCHAR(100) UNIQUE,
 	telefone VARCHAR(9),
 	senha VARCHAR(255),
@@ -47,7 +46,7 @@ CREATE TABLE TipoAtendimento(
 
 CREATE TABLE Atendimento(
 	CreateDate DATE,
-	Cliente BIGINT,
+	Cliente VARCHAR(11),
 	Situacao VARCHAR(50),
 	Produto BIGINT,
 	TipoAtendimento BIGINT,
@@ -55,6 +54,6 @@ CREATE TABLE Atendimento(
 	Solucao VARCHAR(255),
 	FOREIGN KEY (TipoAtendimento) REFERENCES TipoAtendimento(id),
 	FOREIGN KEY (Produto) REFERENCES Produto(id),
-	FOREIGN KEY (Cliente) REFERENCES Usuario(id)
+	FOREIGN KEY (Cliente) REFERENCES Usuario(cpf)
 );
 
