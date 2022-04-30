@@ -34,7 +34,7 @@ public class UsuarioDAO {
     public void inserir(Usuario u) throws DAOException {
         try (PreparedStatement st = con.prepareStatement(QUERY_INSERIR_USER)) {
             st.setString(1, u.getNome());
-            st.setString(2, u.getCPF());
+            st.setString(2, u.getCPF().replaceAll("\\W+",""));            
             st.setString(3, u.getEmail());
             st.setString(4, u.getTelefone());
             st.setString(5, u.getSenha());
