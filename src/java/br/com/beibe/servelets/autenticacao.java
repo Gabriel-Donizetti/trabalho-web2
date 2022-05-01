@@ -8,12 +8,7 @@ package br.com.beibe.servelets;
 import br.com.beibe.beans.Usuario;
 import br.com.beibe.exception.DAOException;
 import br.com.beibe.model.Autenticacao;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -28,12 +23,7 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "autenticacao", urlPatterns = {"/autenticacao"})
 public class autenticacao extends HttpServlet {
-
-    private static HttpURLConnection conexao;
-    BufferedReader leitor;
-    String linha;
-    StringBuffer conteudo = new StringBuffer();
-    
+ 
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -108,45 +98,7 @@ public class autenticacao extends HttpServlet {
             //RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
             //dispatcher.forward(request, response);
             //}
-        } else if (method.equals("cep")) {
-            
-            /*
-            try {
-                //CONEXÃO COM API CEP MÉTODO 1
-                cep = request.getParameter("CEP")
-                URL url = new URL("http://viacep.com.br/ws/81530350/json/");
-                conexao = (HttpURLConnection) url.openConnection();
-                conexao.setRequestMethod("GET");
-                conexao.setConnectTimeout(5000);
-                conexao.setReadTimeout(5000);
-                int status = conexao.getResponseCode();
-               // Status da resposta System.out.println(status);
-                if (status > 299){
-                    leitor = new BufferedReader(new InputStreamReader(conexao.getErrorStream()));
-                    while((linha = leitor.readLine())!=null){
-                        conteudo.append(linha);
-                    }
-                    leitor.close();
-                }else{
-                    leitor = new BufferedReader (new InputStreamReader(conexao.getInputStream()));
-                    while((linha = leitor.readLine())!=null){
-                        conteudo.append(linha);                                           
-                    }
-                    leitor.close();
-                }                    
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-
-            } finally{
-                conexao.disconnect();
-            }*/
-        
-            
-            
-            
-
+        } else if (method.equals("cep")) {            
         } else if (method.equals("logout")) {
             HttpSession session = request.getSession(false);
             if (session != null) {
