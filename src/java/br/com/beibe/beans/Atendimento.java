@@ -20,19 +20,28 @@ public class Atendimento {
     private String descricao;
     private String solucao;
     
-   
     public Atendimento() {
     }
 
-    public Atendimento(Date data, String hora, Usuario cliente, String situacaoAtendimento, Produto produto, String descricao, String solucao) {
+    public Atendimento(Date data, Usuario cliente, String situacaoAtendimento, Produto produto, String descricao, String solucao, TipoAtendimento tipoAtendimento) {
         this.data = data;
         this.cliente = cliente;
         this.situacaoAtendimento = situacaoAtendimento;
         this.produto = produto;
         this.descricao = descricao;
         this.solucao = solucao;
+        this.tipoAtendimento = tipoAtendimento;
     }
 
+    public Atendimento(Usuario cliente, String situacaoAtendimento, Produto produto, String descricao, String solucao, TipoAtendimento tipoAtendimento) {
+        this.cliente = cliente;
+        this.situacaoAtendimento = situacaoAtendimento;
+        this.produto = produto;
+        this.descricao = descricao;
+        this.solucao = solucao;
+        this.tipoAtendimento = tipoAtendimento;
+    }
+    
     public Date getData() {
         return data;
     }
@@ -41,7 +50,6 @@ public class Atendimento {
         this.data = data;
     }
 
-  
     public Usuario getCliente() {
         return cliente;
     }

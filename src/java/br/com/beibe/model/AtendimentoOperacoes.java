@@ -16,11 +16,11 @@ import br.com.beibe.exception.DAOException;
  * @author Rafael Kulka
  */
 public class AtendimentoOperacoes {
-    public static Atendimento InserirAtendimento(Atendimento atendimento) throws DAOException  {
+    public static Atendimento InserirAtendimento(Atendimento a) throws DAOException  {
         try (ConnectionFactory factory = new ConnectionFactory()) {
             AtendimentoDAO dao = new AtendimentoDAO(factory.getConnection());
-            dao.inserir(atendimento);
-            return atendimento;
+            dao.inserir(a);
+            return a;
         } catch (Exception ex) {
             throw new DAOException("Não foi possivel inserir atendimento. " + ex);
         }

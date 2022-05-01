@@ -9,6 +9,7 @@ import br.com.beibe.beans.Produto;
 import br.com.beibe.beans.Usuario;
 import br.com.beibe.beans.Atendimento;
 import br.com.beibe.beans.CategoriaProduto;
+import br.com.beibe.beans.TipoAtendimento;
 import br.com.beibe.exception.DAOException;
 import br.com.beibe.model.AtendimentoOperacoes;
 import java.io.IOException;
@@ -38,37 +39,42 @@ public class AtendimentoServelet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-         String method = (String) request.getParameter("method");
+
+        if (request.getSession().getAttribute("usuario") == null) {
+            request.setAttribute("erro", "Sessão expirou");
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+            dispatcher.forward(request, response);
+        }
+
+        String method = (String) request.getParameter("method");
         if (method.equals("cadastrar")) {
-            
-            Usuario user =(Usuario)request.getSession().getAttribute("usuario");  
-                        
+
+            Usuario user = (Usuario) request.getSession().getAttribute("usuario");
+
             CategoriaProduto categoria = new CategoriaProduto("categorai");
             float var = 1;
             Produto produto = new Produto("Teste", "teste", var, categoria);
-            
-            Atendimento atendimento = new Atendimento(user,"Aberto",produto, "atendimento", "");
-            
-            try{
-                AtendimentoOperacoes.InserirAtendimento(atendimento);
-            }
-            catch(DAOException e){
-                request.setAttribute("Error", e );
+
+            TipoAtendimento ta = new TipoAtendimento("QUALUERCOISA");
+
+            Atendimento a = new Atendimento(user, "Aberto", produto, "atendimento", "", ta);
+
+            try {
+                AtendimentoOperacoes.InserirAtendimento(a);
+            } catch (DAOException e) {
+                request.setAttribute("Error", e);
                 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/erro.jsp");
                 dispatcher.forward(request, response);
             }
-            
-        }else
-        if (method.equals("2")) {
-            
-        }else
-        if (method.equals("3")) {
-            
-        }else{
-        //erro
+
+        } else if (method.equals("2")) {
+
+        } else if (method.equals("3")) {
+
+        } else {
+            //erro
         }
-        
+
         /*response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             out.println("<!DOCTYPE html>");
@@ -81,7 +87,6 @@ public class AtendimentoServelet extends HttpServlet {
             out.println("</body>");
             out.println("</html>");
         }*/
-        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

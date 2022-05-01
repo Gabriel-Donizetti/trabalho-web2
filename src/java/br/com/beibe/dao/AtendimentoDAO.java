@@ -29,7 +29,7 @@ public class AtendimentoDAO {
     
     public void inserir(Atendimento a) throws DAOException {
         try (PreparedStatement st = con.prepareStatement(QUERY_INSERIR_ATENDIMENTO)) {
-            st.setString(1, a.getCliente().getCPF());
+            st.setString(1, a.getCliente().getCpf());
             st.setString(2, "Aberto");
             st.setString(3, a.getProduto().getNome());
             st.setString(4, a.getTipoAtendimento().getNome());
@@ -37,10 +37,10 @@ public class AtendimentoDAO {
             st.setString(6, a.getSolucao());
             
             st.executeUpdate();
-             //throw new DAOException(st.toString());
+             
 
         } catch(org.h2.jdbc.JdbcSQLIntegrityConstraintViolationException e){
-            throw new DAOException("Atendimento  já cadastrado");
+            throw new DAOException("Erro ao inserir atendimento: " + e);
         }
         catch (SQLException e) {
             throw new DAOException( e.toString());

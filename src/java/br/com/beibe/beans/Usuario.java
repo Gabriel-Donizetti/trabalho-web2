@@ -131,11 +131,11 @@ public class Usuario {
         this.nome = nome;
     }
 
-    public String getCPF() {
+    public String getCpf() {
         return CPF;
     }
 
-    public void setCPF(String CPF) {
+    public void setCpf(String CPF) {
         this.CPF = CPF;
     }
 
