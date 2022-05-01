@@ -55,6 +55,18 @@ public class Usuario {
         this.cidade = cidade;
         this.estado = estado;
     }
+    
+    
+    public Usuario() {
+    }
+    
+    public Usuario(String rua, String bairro,String cep,String cidade, String estado){
+        this.rua = rua;
+        this.bairro = bairro;
+        this.cep = cep;
+        this.cidade = cidade;
+        this.estado = estado;        
+    }
 
     public String getRua() {
         return rua;
@@ -112,8 +124,6 @@ public class Usuario {
         this.estado = estado;
     }
 
-    public Usuario() {
-    }
 
     public int getTipo() {
         return tipo;

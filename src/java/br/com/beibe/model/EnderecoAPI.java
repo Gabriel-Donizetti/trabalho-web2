@@ -21,10 +21,9 @@ import org.json.JSONObject;
  */
 public class EnderecoAPI {
     
-    private static HttpURLConnection conexao;
-    
-    
+    private static HttpURLConnection conexao;   
     public static void main(String[]args){
+        
             try {
                 //CONEXÃO COM API CEP MÉTODO 1
                 //cep = request.getParameter("CEP");
@@ -64,7 +63,7 @@ public class EnderecoAPI {
            
            JSONObject album = new JSONObject(conteudoBody);
            String  cep = album.getString("cep");
-           String endereco = album.getString("logradouro");
+           String rua = album.getString("logradouro");
            String bairro = album.getString("bairro");
            String cidade = album.getString("cidade");
            String estado = album.getString("uf");   
