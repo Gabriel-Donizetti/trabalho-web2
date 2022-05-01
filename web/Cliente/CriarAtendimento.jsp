@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page isELIgnored="false" %> 
 <!DOCTYPE html>
 <html>
     <head>
@@ -51,7 +52,7 @@
     <div class="height-100 bg-light">   
         <br><br><br><br><br>
         <h2>Cadastro de atendimento: </h2>
-        <form>
+        <form action="${pageContext.request.contextPath}/Atendimento?method=cadastrar" method="post">
             <div class="form-group">
                 <label>Produto:</label>
                 <input type="text" name="Produto" class="form-control" id="" value="">
@@ -59,6 +60,7 @@
                 <input type="text" name="tipo" id="" class="form-control" value="">
                 <label>Descrição</label>
                 <input type="text" name="Descricao" id="" class="form-control" value="">    
+                <button type="submit" class="btn btn-color px-5 w-100">Cadastrar</button>
             </div>
         </form>
     </div>
