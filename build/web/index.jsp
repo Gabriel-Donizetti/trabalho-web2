@@ -1,5 +1,7 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page isELIgnored="false" %> 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -23,8 +25,8 @@
                   <input type="password" class="form-control" id="password" placeholder="Senha" name="Senha">
                 </div>
                 <div class="text-center"><button type="submit" class="btn btn-color px-5 w-100">Login</button>
-                <div class="text-danger">Erro: <% out.println(request.getAttribute("erro"));%> ${param.erro}</div></div>
-                <div id="emailHelp" class="form-text text-center mt-5 mb-5 text-dark">Não tem uma conta? <a href="register.jsp" class="text-dark fw-bold">Criar conta</a>
+                    <div class="text-danger">${requestScope.erro}</div></div>
+                <div id="emailHelp" class="form-text text-center mt-5 mb-5 text-dark">NÃ£o tem uma conta? <a href="register.jsp" class="text-dark fw-bold">Criar conta</a>
                 </div>
               </form>
             </div>
