@@ -4,13 +4,13 @@
  * and open the template in the editor.
  */
 package br.com.beibe.dao;
-import br.com.beibe.beans.Produto;
 import br.com.beibe.beans.CategoriaProduto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import br.com.beibe.exception.DAOException;
+import java.util.ArrayList;
 
 /**
  *
@@ -19,6 +19,8 @@ import br.com.beibe.exception.DAOException;
 public class CategoriaDAO {
     private static final String QUERY_INSERIR_USER = "INSERT INTO BEIBE.categoriaproduto (nome) VALUES (?)";
     private static final String QUERY_BUSCAR = "SELECT * FROM BEIBE.categoriaproduto WHERE nome = ?";
+    private static final String QUERY_BUSCAR_TODOS = "SELECT * FROM BEIBE.categoriaproduto";
+    
     private Connection con = null;
 
     public CategoriaDAO(Connection con) throws DAOException {
@@ -39,6 +41,7 @@ public class CategoriaDAO {
             throw new DAOException(e.toString());
         }
     }
+    
     public CategoriaProduto buscarCategoria(String nome) {
         try (PreparedStatement st = con.prepareStatement(QUERY_BUSCAR)) {
             st.setString(1, nome);
@@ -52,6 +55,21 @@ public class CategoriaDAO {
             } else {
                 return null;
             }
+        } catch (SQLException e) {
+            return null;
+        }
+    }
+    
+    public ArrayList<CategoriaProduto> buscarTodosProduto() {
+        ArrayList<CategoriaProduto> retorno = new ArrayList<CategoriaProduto>();
+        try (PreparedStatement st = con.prepareStatement(QUERY_BUSCAR_TODOS)) {
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                CategoriaProduto categoria = new CategoriaProduto(
+                rs.getString("nome"));
+                retorno.add(categoria);
+            }
+            return retorno;
         } catch (SQLException e) {
             return null;
         }
