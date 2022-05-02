@@ -60,13 +60,12 @@ public class CategoriaDAO {
         }
     }
     
-    public ArrayList<CategoriaProduto> buscarTodosProduto() {
+    public ArrayList<CategoriaProduto> buscarTodasCategorias() {
         ArrayList<CategoriaProduto> retorno = new ArrayList<CategoriaProduto>();
         try (PreparedStatement st = con.prepareStatement(QUERY_BUSCAR_TODOS)) {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                CategoriaProduto categoria = new CategoriaProduto(
-                rs.getString("nome"));
+                CategoriaProduto categoria = new CategoriaProduto(rs.getString("nome"));
                 retorno.add(categoria);
             }
             return retorno;

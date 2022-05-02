@@ -84,23 +84,23 @@
                 </thead>
                 <tbody>
                     <c:forEach items="${requestScope.produtos}" var="produto" varStatus="loop">
-                    <tr>
-                        <th scope="row">${loop.count}</th>
-                        <td><c:out value="${produto.nome}"/></td>
-                        <td><c:out value="${produto.categoria.nome}"/></td>
-                        <td><c:out value="${produto.descricao}"/></td>
-                        <td><c:out value="${produto.peso}"/></td>
-                        <td><a href="${pageContext.request.contextPath}/Produto?method=editar&index=${produto.nome}">Editar</a>&nbsp;<a href="#" data-toggle="modal" data-target="#meuModal">Deletar</a></td>
-                    </tr>
+                        <tr>
+                            <th scope="row">${loop.count}</th>
+                            <td><c:out value="${produto.nome}"/></td>
+                            <td><c:out value="${produto.categoria.nome}"/></td>
+                            <td><c:out value="${produto.descricao}"/></td>
+                            <td><c:out value="${produto.peso}"/></td>
+                            <td><a href="${pageContext.request.contextPath}/Produto?method=editar&index=${produto.nome}">Editar</a>&nbsp;<a href="#" data-toggle="modal" data-target="#meuModal">Deletar</a></td>
+                        </tr>
                     </c:forEach>
                 </tbody>
             </table>
 
-            
+
             <form action="${pageContext.request.contextPath}/Produto?method=adicionar" method="post">
                 <button type="submit" class="btn btn-primary">Adicionar novo</button>
             </form>
-                
+
             <div id="cadastro">
                 <h4>Cadastro de Produto</h4>
                 <form action="${pageContext.request.contextPath}/Produto?method=salvar&tipo=${requestScope.tipo}" method="post">
@@ -108,7 +108,15 @@
                         <label for="exampleFormControlSelect1">Nome do produto :</label>
                         <input type="text" name="Nome" class="form-control" id="ProdutoNome" value="${requestScope.produtoEdicao.nome}">
                         <label for="exampleFormControlSelect1">Categoria :</label>
-                        <input type="text" name="Categoria" id="ProdutoCategoria" class="form-control" value="${requestScope.produtoEdicao.categoria.nome}">
+                        <br>
+                        <select class="form-select"  name="Categoria" id="ProdutoCategoria">
+                            <c:forEach items="${requestScope.categorias}" var="categoria" varStatus="loop">
+                                <option <c:if test="${requestScope.produtoEdicao.categoria.nome == categoria.nome}" var="resultado">selected</c:if>>
+                                    <c:out value="${categoria.nome}"/>
+                                </option>
+                            </c:forEach>
+                        </select>
+                        <br>                        
                         <label for="exampleFormControlSelect1">Descrição :</label>
                         <input type="text" name="desc" id="ProdutoDescricao" class="form-control" value="${requestScope.produtoEdicao.descricao}">
                         <label for="exampleFormControlSelect1">Peso :</label>
@@ -150,25 +158,25 @@
             </div>
         </div>
 
-        
-                        
+
+
         <script src="script.js"></script>
         <script>
-                document.getElementById("cadastro").hidden = ${requestScope.hidden};
-                document.getElementById("ProdutoNome").disable = true;
-                
-                 function Edit(tipo) {
-                    //document.getElementById("ProdutoNome").disable = true;
-                    //document.getElementById("cadastro").hidden = false;
+            document.getElementById("cadastro").hidden = ${requestScope.hidden};
+            document.getElementById("ProdutoNome").disable = true;
 
-                    if (tipo === 'vazio') {
-                        document.getElementById("ProdutoNome").disable = false;
-                        document.getElementById("ProdutoNome").value = "";
-                        document.getElementById("ProdutoCategoria").value = "";
-                        document.getElementById("ProdutoDescricao").value = "";
-                        document.getElementById("ProdutoPeso").value = "";
-                    }
+            function Edit(tipo) {
+                //document.getElementById("ProdutoNome").disable = true;
+                //document.getElementById("cadastro").hidden = false;
+
+                if (tipo === 'vazio') {
+                    document.getElementById("ProdutoNome").disable = false;
+                    document.getElementById("ProdutoNome").value = "";
+                    document.getElementById("ProdutoCategoria").value = "";
+                    document.getElementById("ProdutoDescricao").value = "";
+                    document.getElementById("ProdutoPeso").value = "";
                 }
+            }
         </script>
     </body>
 </html>

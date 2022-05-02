@@ -8,6 +8,7 @@ package br.com.beibe.servelets;
 import br.com.beibe.beans.CategoriaProduto;
 import br.com.beibe.beans.Produto;
 import br.com.beibe.exception.DAOException;
+import br.com.beibe.model.CategoriaModel;
 import br.com.beibe.model.ProdutoModel;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
@@ -39,6 +40,7 @@ public class ProdutoServelet extends HttpServlet {
             try {
                 request.setAttribute("hidden", true);
                 request.setAttribute("produtos", ProdutoModel.ListarProdutos());
+                 request.setAttribute("categorias", CategoriaModel.ListarCategorias());
                 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Funcionario/CadastroProduto.jsp");
                 dispatcher.forward(request, response);
             } catch (DAOException ex) {
@@ -49,6 +51,7 @@ public class ProdutoServelet extends HttpServlet {
         } else if (method.equals("editar")) {
             try {
                 request.setAttribute("produtos", ProdutoModel.ListarProdutos());
+                request.setAttribute("categorias", CategoriaModel.ListarCategorias());
                 request.setAttribute("hidden", false);
                 String index = (String) request.getParameter("index");
                 request.setAttribute("produtoEdicao", ProdutoModel.BuscarProduto(index));
@@ -73,6 +76,7 @@ public class ProdutoServelet extends HttpServlet {
                     ProdutoModel.InserirProduto(produto);
                     request.setAttribute("hidden", true);
                     request.setAttribute("produtos", ProdutoModel.ListarProdutos());
+                    request.setAttribute("categorias", CategoriaModel.ListarCategorias());
                     RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Funcionario/CadastroProduto.jsp");
                     dispatcher.forward(request, response);
                 } catch (DAOException ex) {
@@ -80,11 +84,12 @@ public class ProdutoServelet extends HttpServlet {
                     RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
                     dispatcher.forward(request, response);
                 }
-
+            }else{
                 try {
                     ProdutoModel.atualizarProduto(produto);
                     request.setAttribute("hidden", true);
                     request.setAttribute("produtos", ProdutoModel.ListarProdutos());
+                    request.setAttribute("categorias", CategoriaModel.ListarCategorias());
                     RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Funcionario/CadastroProduto.jsp");
                     dispatcher.forward(request, response);
                 } catch (DAOException ex) {
@@ -96,6 +101,7 @@ public class ProdutoServelet extends HttpServlet {
         } else if (method.equals("adicionar")) {
             try {
                 request.setAttribute("produtos", ProdutoModel.ListarProdutos());
+                request.setAttribute("categorias", CategoriaModel.ListarCategorias());
             } catch (DAOException ex) {
                 request.setAttribute("erro", "Erro ao carregar tela produtos " + ex);
                 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
