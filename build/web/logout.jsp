@@ -1,10 +1,12 @@
 <%-- 
-    Document   : index
-    Created on : 02/05/2022, 05:01:50
+    Document   : logout
+    Created on : 01/05/2022, 10:34:14
     Author     : Rafael Kulka
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page isELIgnored="false" %> 
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -12,6 +14,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <a href="${pageContext.request.contextPath}/Produto?method=listar">cadastro produto</a>
+        <% session.invalidate(); %>
+        <c:redirect url="/index.jsp"> </c:redirect>
     </body>
 </html>

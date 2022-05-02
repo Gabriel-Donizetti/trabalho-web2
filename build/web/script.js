@@ -1,0 +1,31 @@
+function ValidaCPF() {
+    var RegraValida = document.getElementById("RegraValida").value;
+    var cpfValido = /^(([0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2})|([0-9]{11}))$/;
+    if (cpfValido.test(RegraValida) == true) {
+        console.log("CPF Válido");
+    } else {
+        console.log("CPF Inválido");
+    }
+}
+function fMasc(objeto, mascara) {
+    var CPF = document.getElementById('CPF').value;
+    if (CPF.length > 13) {
+        document.getElementById('CPF').value = CPF.substring(0, 13);
+    }
+
+    obj = objeto
+    masc = mascara
+    setTimeout("fMascEx()", 1)
+}
+
+function fMascEx() {
+    obj.value = masc(obj.value)
+}
+
+function mCPF(cpf) {
+    cpf = cpf.replace(/\D/g, "")
+    cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2")
+    cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2")
+    cpf = cpf.replace(/(\d{3})(\d{1,2})$/, "$1-$2")
+    return cpf
+}
