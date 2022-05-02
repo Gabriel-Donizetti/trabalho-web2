@@ -1,9 +1,9 @@
 <%-- 
     Document   : index
-    Created on : 28/04/2022, 15:27:14
-    Author     : Iury
+    Created on : 02/05/2022, 05:01:50
+    Author     : Rafael Kulka
 --%>
-<%@ include file="Navbar.jsp" %>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -11,8 +11,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
     </head>
-    
     <body>
-        <h1>Hello World!</h1>
+        <a href="${pageContext.request.contextPath}/Produto?method=listar">cadastro produto</a>
     </body>
 </html>
