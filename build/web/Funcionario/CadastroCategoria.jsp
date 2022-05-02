@@ -3,7 +3,7 @@
     Created on : 20/04/2022, 13:56:51
     Author     : Iury
 --%>
-<%@page isELIgnored="false"%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -30,7 +30,6 @@
 <body id="body-pd">
    <header class="header" id="header">
       <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
-      <span>Voce está logado como:${sessionScope.usuario.nome}</span>
       <div class="header_img"> <img src="https://i.imgur.com/hczKIze.jpg" alt="Sua foto" title="Joãozinho very crazy">
       </div>
    </header>
