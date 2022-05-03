@@ -82,12 +82,8 @@ public class UsuarioDAO {
             st.setString(10, u.getBairro());
             st.setString(11, u.getCep().replaceAll("\\W+",""));
             st.setString(12, u.getCidade());
-<<<<<<< HEAD
             st.setString(13, u.getEstado());
 
-=======
-            st.setString(13, u.getEstado());              
->>>>>>> 18018a3ed149f86d0afc4cc2209d40279974fc3f
             st.executeUpdate();
             //throw new DAOException(st.toString());
 
@@ -117,7 +113,6 @@ public class UsuarioDAO {
             st.setString(13, u.getEstado());
 
             st.executeUpdate();
-            //throw new DAOException(st.toString());
 
         } catch (org.h2.jdbc.JdbcSQLIntegrityConstraintViolationException e) {
             throw new DAOException("Usuário já cadastrado");

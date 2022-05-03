@@ -37,13 +37,21 @@ public class AtendimentoServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
         if (request.getSession().getAttribute("usuario") == null) {
             request.setAttribute("erro", "Sessão expirou");
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
             dispatcher.forward(request, response);
         }
-
+        Usuario validar = (Usuario)request.getSession().getAttribute("usuario");
+        
+        String path = "";
+        if(validar.getTipo() == 2){
+            path = "Funcionario";
+        }else if(validar.getTipo() ==3){
+            path = "Gerente";
+        } 
+        
         String method = (String) request.getParameter("method");
         
         if (method.equals("deletar")) {
@@ -73,7 +81,7 @@ public class AtendimentoServlet extends HttpServlet {
         } else if (method.equals("listarAtendimentosAbertos")) {
             try {
                 request.setAttribute("atendimentos", AtendimentoOperacoes.ListarTodosAtendimentosAbertos());
-                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Funcionario/ListagemAtendimentosAberto.jsp");
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/" + path + "/ListagemAtendimentosAberto.jsp");
                 dispatcher.forward(request, response);
             } catch (DAOException ex) {
                 request.setAttribute("erro", "Erro ao carregar atendimentos" + ex);
@@ -83,7 +91,7 @@ public class AtendimentoServlet extends HttpServlet {
         } else if (method.equals("listarAtendimentos")) {
             try {
                 request.setAttribute("atendimentos", AtendimentoOperacoes.ListarTodosAtendimentos());
-                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Funcionario/ListagemAtendimentos.jsp");
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/" + path + "/ListagemAtendimentos.jsp");
                 dispatcher.forward(request, response);
             } catch (DAOException ex) {
                 request.setAttribute("erro", "Erro ao carregar atendimentos" + ex);
