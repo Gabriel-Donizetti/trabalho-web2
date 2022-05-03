@@ -45,9 +45,7 @@ public class UsuarioDAO {
             st.setString(10, u.getBairro());
             st.setString(11, u.getCep().replaceAll("\\W+",""));
             st.setString(12, u.getCidade());
-            st.setString(13, u.getEstado());
-  
-            
+            st.setString(13, u.getEstado());              
             st.executeUpdate();
              //throw new DAOException(st.toString());
 
