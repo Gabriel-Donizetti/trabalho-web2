@@ -43,7 +43,7 @@ public class UsuarioDAO {
             st.setString(8, u.getNumero());
             st.setString(9, u.getComplemento());  
             st.setString(10, u.getBairro());
-            st.setString(11, u.getCep());
+            st.setString(11, u.getCep().replaceAll("\\W+",""));
             st.setString(12, u.getCidade());
             st.setString(13, u.getEstado());
   
