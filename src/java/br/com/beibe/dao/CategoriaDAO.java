@@ -18,9 +18,10 @@ import java.util.ArrayList;
  * @author Iury
  */
 public class CategoriaDAO {
-    private static final String QUERY_INSERIR_USER = "INSERT INTO BEIBE.categoriaproduto (nome) VALUES (?)";
+    private static final String QUERY_INSERIR_CATEGORIA = "INSERT INTO BEIBE.categoriaproduto VALUES (?)";
     private static final String QUERY_BUSCAR = "SELECT * FROM BEIBE.categoriaproduto WHERE nome = ?";
     private static final String QUERY_BUSCAR_TODOS = "SELECT * FROM BEIBE.categoriaproduto";
+    private static final String QUERY_DELETAR_CATEGORIA = "DELETE FROM BEIBE.categoriaproduto WHERE nome = ?";
     
     private Connection con = null;
 
@@ -31,7 +32,7 @@ public class CategoriaDAO {
         this.con = con;
     }
     public void inserir(CategoriaProduto u) throws DAOException {
-        try (PreparedStatement st = con.prepareStatement(QUERY_INSERIR_USER)) {
+        try (PreparedStatement st = con.prepareStatement(QUERY_INSERIR_CATEGORIA)) {
 
             st.setString(1, u.getNome());
             st.executeUpdate();
@@ -72,6 +73,17 @@ public class CategoriaDAO {
             return retorno;
         } catch (SQLException e) {
             return null;
+        }
+    }
+    
+    public void deletar(CategoriaProduto u) throws DAOException {
+        try (PreparedStatement st = con.prepareStatement(QUERY_DELETAR_CATEGORIA)) {
+            st.setString(1, u.getNome());
+            st.executeUpdate();
+        } catch (SQLException e) {
+            throw new DAOException(e.toString());
+        } catch (Exception ex) {
+            throw new DAOException(ex.toString());
         }
     }
 }
