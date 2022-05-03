@@ -32,8 +32,9 @@
                             </div>
 
                             <div class="mb-3">
-                                <input type="CEP" class="form-control" id="CEP" aria-describedby="emailHelp" name="CEP"
-                                       placeholder="CEP">
+                                <input type="CEP" class="form-control" id="CEP" aria-describedby="emailHelp" name="CEP" maxlength="10"  placeholder="CEP" onkeydown="javascript: fMasc( this, mCEP );">
+                                       
+                                
                             </div>
                             <button class="btn btn-color px-5 w-50 mb-3">Buscar</button>
 
