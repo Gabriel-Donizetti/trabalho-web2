@@ -6,10 +6,10 @@
 package br.com.beibe.servelets;
 
 import br.com.beibe.beans.CategoriaProduto;
-import br.com.beibe.beans.Produto;
+
 import br.com.beibe.exception.DAOException;
 import br.com.beibe.model.CategoriaModel;
-import br.com.beibe.model.ProdutoModel;
+
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -38,7 +38,7 @@ public class CategoriaServelet extends HttpServlet {
         String method = (String) request.getParameter("method");
         if (method.equals("listar")) {
             try {
-                request.setAttribute("hidden", true);
+                    request.setAttribute("hidden", true);
                  request.setAttribute("categorias", CategoriaModel.ListarCategorias());
                 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Funcionario/CadastroCategoria.jsp");
                 dispatcher.forward(request, response);
@@ -50,7 +50,7 @@ public class CategoriaServelet extends HttpServlet {
         } else if (method.equals("salvar")) {
             String tipo = (String) request.getParameter("tipo");
             CategoriaProduto categoria = new CategoriaProduto(
-                    request.getParameter("Nome")
+                    request.getParameter("Categoria")
             );
 
             if (tipo.equals("inclusao")) {
@@ -61,7 +61,7 @@ public class CategoriaServelet extends HttpServlet {
                     RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Funcionario/CadastroCategoria.jsp");
                     dispatcher.forward(request, response);
                 } catch (DAOException ex) {
-                    request.setAttribute("erro", "Erro ao carregar tela categorias " + ex);
+                    request.setAttribute("erro", "Erro ao carregar tela categorias" + ex);
                     RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
                     dispatcher.forward(request, response);
                 }

@@ -41,8 +41,9 @@ CREATE TABLE TipoAtendimento(
 	nome VARCHAR(100) PRIMARY KEY
 );
 
-CREATE TABLE Atendimento(
-	CreateDate DATE,
+CREATE TABLE Atendimento( 
+	id BIGINT AUTO_INCREMENT PRIMARY KEY, 
+	CreateDate TIMESTAMP,
 	Cliente VARCHAR(11),
 	Situacao VARCHAR(50),
 	Produto VARCHAR(100),
@@ -53,4 +54,6 @@ CREATE TABLE Atendimento(
 	FOREIGN KEY (Produto) REFERENCES Produto(nome),
 	FOREIGN KEY (Cliente) REFERENCES Usuario(cpf)
 );
+
+INSERT INTO TipoAtendimento VALUES ('Reclamacao'),('Sugestao');
 

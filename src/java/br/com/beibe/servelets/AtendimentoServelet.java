@@ -5,13 +5,12 @@
  */
 package br.com.beibe.servelets;
 
-import br.com.beibe.beans.Produto;
 import br.com.beibe.beans.Usuario;
 import br.com.beibe.beans.Atendimento;
-import br.com.beibe.beans.CategoriaProduto;
-import br.com.beibe.beans.TipoAtendimento;
 import br.com.beibe.exception.DAOException;
 import br.com.beibe.model.AtendimentoOperacoes;
+import static br.com.beibe.model.AtendimentoOperacoes.gerarBeanAtendimento;
+import br.com.beibe.model.ProdutoModel;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 //import java.io.PrintWriter;
@@ -47,46 +46,77 @@ public class AtendimentoServelet extends HttpServlet {
         }
 
         String method = (String) request.getParameter("method");
-        if (method.equals("cadastrar")) {
 
-            Usuario user = (Usuario) request.getSession().getAttribute("usuario");
-
-            CategoriaProduto categoria = new CategoriaProduto("categorai");
-            float var = 1;
-            Produto produto = new Produto("Teste", "teste", var, categoria);
-
-            TipoAtendimento ta = new TipoAtendimento("QUALUERCOISA");
-
-            Atendimento a = new Atendimento(user, "Aberto", produto, "atendimento", "", ta);
-
+        if (method.equals("listarAtendimentosAbertos")) {
             try {
+                request.setAttribute("atendimentos", AtendimentoOperacoes.ListarTodosAtendimentosAbertos());
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Funcionario/ListagemAtendimentosAberto.jsp");
+                dispatcher.forward(request, response);
+            } catch (DAOException ex) {
+                request.setAttribute("erro", "Erro ao carregar atendimentos" + ex);
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+                dispatcher.forward(request, response);
+            }
+        } else if (method.equals("listarAtendimentos")) {
+            try {
+                request.setAttribute("atendimentos", AtendimentoOperacoes.ListarTodosAtendimentos());
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Funcionario/ListagemAtendimentos.jsp");
+                dispatcher.forward(request, response);
+            } catch (DAOException ex) {
+                request.setAttribute("erro", "Erro ao carregar atendimentos" + ex);
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+                dispatcher.forward(request, response);
+            }
+
+        } else if (method.equals("cadastrar")) {
+            Usuario user = (Usuario) request.getSession().getAttribute("usuario");
+            try {
+                Atendimento a = gerarBeanAtendimento(
+                        user,
+                        request.getParameter("Produto"),
+                        request.getParameter("Descricao"),
+                        request.getParameter("Tipo")
+                );
+
                 AtendimentoOperacoes.InserirAtendimento(a);
+
+                request.setAttribute("atendimentos", AtendimentoOperacoes.ListarAtendimentos(user.getCpf()));
+
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Cliente/ListarAtendimentos.jsp");
+                dispatcher.forward(request, response);
+
             } catch (DAOException e) {
                 request.setAttribute("Error", e);
                 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/erro.jsp");
                 dispatcher.forward(request, response);
             }
 
-        } else if (method.equals("2")) {
+        } else if (method.equals("carregar")) {
+            try {
+                request.setAttribute("produtos", ProdutoModel.ListarProdutos());
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Cliente/CriarAtendimento.jsp");
+                dispatcher.forward(request, response);
+            } catch (DAOException ex) {
+                request.setAttribute("erro", "Erro ao carregar atendimentos" + ex);
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+                dispatcher.forward(request, response);
+            }
+        } else if (method.equals("listar")) {
+            try {
+                Usuario user = (Usuario) request.getSession().getAttribute("usuario");
+                request.setAttribute("atendimentos", AtendimentoOperacoes.ListarAtendimentos(user.getCpf()));
 
-        } else if (method.equals("3")) {
-
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Cliente/ListarAtendimentos.jsp");
+                dispatcher.forward(request, response);
+            } catch (DAOException ex) {
+                request.setAttribute("erro", "Erro ao carregar atendimentos" + ex);
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+                dispatcher.forward(request, response);
+            }
         } else {
             //erro
         }
 
-        /*response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Atendimento</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Atendimento at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }*/
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

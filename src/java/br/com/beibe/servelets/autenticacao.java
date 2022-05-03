@@ -85,8 +85,11 @@ public class autenticacao extends HttpServlet {
             
             try {
                 Autenticacao.register(user);
-                HttpSession session = request.getSession();
-                session.setAttribute("usuario", user);
+                //HttpSession session = request.getSession();
+                //session.setAttribute("usuario", user);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
+                dispatcher.forward(request, response);
+                
             } catch (DAOException e) {
                 request.setAttribute("erro", "usuário não cadastrado. " + e);
                 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/register.jsp");

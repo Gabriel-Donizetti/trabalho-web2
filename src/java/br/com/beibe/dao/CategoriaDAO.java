@@ -38,7 +38,7 @@ public class CategoriaDAO {
             st.executeUpdate();
             //throw new DAOException(st.toString());
         } catch (org.h2.jdbc.JdbcSQLIntegrityConstraintViolationException e) {
-            throw new DAOException("Categoria já cadastrado");
+            throw new DAOException("Categoria já cadastrado" );
         } catch (SQLException e) {
             throw new DAOException(e.toString());
         }

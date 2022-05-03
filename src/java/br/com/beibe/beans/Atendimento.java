@@ -19,11 +19,20 @@ public class Atendimento {
     private TipoAtendimento tipoAtendimento;
     private String descricao;
     private String solucao;
+    private int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
     
     public Atendimento() {
     }
 
-    public Atendimento(Date data, Usuario cliente, String situacaoAtendimento, Produto produto, String descricao, String solucao, TipoAtendimento tipoAtendimento) {
+    public Atendimento(Date data, Usuario cliente, String situacaoAtendimento, Produto produto, String descricao, String solucao, TipoAtendimento tipoAtendimento, int id) {
         this.data = data;
         this.cliente = cliente;
         this.situacaoAtendimento = situacaoAtendimento;
@@ -31,6 +40,7 @@ public class Atendimento {
         this.descricao = descricao;
         this.solucao = solucao;
         this.tipoAtendimento = tipoAtendimento;
+        this.id = id;
     }
 
     public Atendimento(Usuario cliente, String situacaoAtendimento, Produto produto, String descricao, String solucao, TipoAtendimento tipoAtendimento) {
