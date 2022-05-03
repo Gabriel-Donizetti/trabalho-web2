@@ -70,5 +70,25 @@ public class AtendimentoOperacoes {
         }
         return retorno;
     }
-    
+
+    public static Atendimento buscarAtendimento(int index) throws DAOException {
+        Atendimento retorno = new Atendimento();
+        try (ConnectionFactory factory = new ConnectionFactory()) {
+            AtendimentoDAO dao = new AtendimentoDAO(factory.getConnection());
+            retorno = dao.buscarAtendimento(index);
+        } catch (Exception exc) {
+            throw new DAOException("Erro ao busar atendimento: " + exc);
+        }
+        return retorno;
+    }
+
+    public static String deletarAtendimento(int index) throws DAOException {
+        try (ConnectionFactory factory = new ConnectionFactory()) {
+            AtendimentoDAO dao = new AtendimentoDAO(factory.getConnection());
+            return dao.deletarAtendimento(index);
+        } catch (Exception exc) {
+            throw new DAOException("Erro ao busar atendimento: " + exc);
+        }
+    }
+
 }

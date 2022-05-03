@@ -1,9 +1,3 @@
-<%-- 
-    Document   : CriarAtendimento
-    Created on : 30/04/2022, 10:07:46
-    Author     : Rafael Kulka
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page isELIgnored="false" %> 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>

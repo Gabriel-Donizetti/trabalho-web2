@@ -13,7 +13,6 @@ import static br.com.beibe.model.AtendimentoOperacoes.gerarBeanAtendimento;
 import br.com.beibe.model.ProdutoModel;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
-//import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author Rafael Kulka
  */
 @WebServlet(name = "Atendimento", urlPatterns = {"/Atendimento"})
-public class AtendimentoServelet extends HttpServlet {
+public class AtendimentoServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -46,8 +45,32 @@ public class AtendimentoServelet extends HttpServlet {
         }
 
         String method = (String) request.getParameter("method");
+        
+        if (method.equals("deletar")) {
+            String index = (String) request.getParameter("index");
+            try {
+                request.setAttribute("retorno", AtendimentoOperacoes.deletarAtendimento(Integer.parseInt(index)));
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Atendimento?method=listar");
+                dispatcher.forward(request, response);
+            } catch (DAOException ex) {
+                request.setAttribute("erro", "Erro ao carregar atendimentos" + ex);
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+                dispatcher.forward(request, response);
+            }
 
-        if (method.equals("listarAtendimentosAbertos")) {
+        } else if (method.equals("procurar")) {
+            String index = (String) request.getParameter("index");
+            try {
+                request.setAttribute("atendimento", AtendimentoOperacoes.buscarAtendimento(Integer.parseInt(index)));
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Cliente/AtendimentoCliente.jsp");
+                dispatcher.forward(request, response);
+            } catch (DAOException ex) {
+                request.setAttribute("erro", "Erro ao carregar atendimentos" + ex);
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+                dispatcher.forward(request, response);
+            }
+
+        } else if (method.equals("listarAtendimentosAbertos")) {
             try {
                 request.setAttribute("atendimentos", AtendimentoOperacoes.ListarTodosAtendimentosAbertos());
                 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Funcionario/ListagemAtendimentosAberto.jsp");
@@ -105,7 +128,6 @@ public class AtendimentoServelet extends HttpServlet {
             try {
                 Usuario user = (Usuario) request.getSession().getAttribute("usuario");
                 request.setAttribute("atendimentos", AtendimentoOperacoes.ListarAtendimentos(user.getCpf()));
-
                 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Cliente/ListarAtendimentos.jsp");
                 dispatcher.forward(request, response);
             } catch (DAOException ex) {

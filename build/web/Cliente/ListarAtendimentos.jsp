@@ -1,9 +1,3 @@
-<%-- 
-    Document   : ListarAtendimentos
-    Created on : 03/05/2022, 07:47:38
-    Author     : Rafael Kulka
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page isELIgnored="false" %> 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -280,6 +274,8 @@
     </div> 
     <div class="height-100 bg-light">   
         <br><br><br><br>
+        
+        <label class="text-danger">${requestScope.retorno}</label>
         <h1>Atendimentos: </h1>
         <table class="table">
             <thead class="thead-dark">

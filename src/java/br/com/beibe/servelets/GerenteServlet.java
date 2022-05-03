@@ -1,15 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.beibe.servelets;
 
-import br.com.beibe.beans.CategoriaProduto;
-import br.com.beibe.beans.Produto;
+import br.com.beibe.beans.Usuario;
 import br.com.beibe.exception.DAOException;
-import br.com.beibe.model.CategoriaModel;
-import br.com.beibe.model.ProdutoModel;
+
+import br.com.beibe.model.GerenteModel;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,12 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author Rafael Kulka
- */
-@WebServlet(name = "Produto", urlPatterns = {"/Produto"})
-public class ProdutoServelet extends HttpServlet {
+@WebServlet(name = "GerenteServlet", urlPatterns = {"/GerenteServlet"})
+public class GerenteServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,63 +24,71 @@ public class ProdutoServelet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         String method = (String) request.getParameter("method");
         if (method.equals("listar")) {
             try {
                 request.setAttribute("hidden", true);
-                request.setAttribute("produtos", ProdutoModel.ListarProdutos());
-                 request.setAttribute("categorias", CategoriaModel.ListarCategorias());
-                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Funcionario/CadastroProduto.jsp");
+                request.setAttribute("usuarios", GerenteModel.ListarUsuarios());
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Gerente/CadastroFuncionariosGerentes.jsp");
                 dispatcher.forward(request, response);
             } catch (DAOException ex) {
-                request.setAttribute("erro", "Erro ao carregar tela produtos " + ex);
-                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
-                dispatcher.forward(request, response);
-            }
-        } else if (method.equals("editar")) {
-            try {
-                request.setAttribute("produtos", ProdutoModel.ListarProdutos());
-                request.setAttribute("categorias", CategoriaModel.ListarCategorias());
-                request.setAttribute("hidden", false);
-                String index = (String) request.getParameter("index");
-                request.setAttribute("produtoEdicao", ProdutoModel.BuscarProduto(index));
-                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Funcionario/CadastroProduto.jsp");
-                dispatcher.forward(request, response);
-            } catch (DAOException ex) {
-                request.setAttribute("erro", "Erro ao carregar tela produtos " + ex);
+                request.setAttribute("erro", "Erro ao carregar tela usuarios " + ex);
                 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
                 dispatcher.forward(request, response);
             }
         } else if (method.equals("salvar")) {
             String tipo = (String) request.getParameter("tipo");
-            Produto produto = new Produto(
-                    request.getParameter("Nome"),
-                    request.getParameter("desc"),
-                    Float.parseFloat(request.getParameter("Peso")),
-                    new CategoriaProduto(request.getParameter("Categoria"))
+
+            int type = 1;
+            String t = "";
+            try {
+                t = request.getParameter("Tipo");
+                if (t.equals("Gerente")) {
+                    type = 3;
+                } else if (t.equals("Funcionario")) {
+                    type = 2;
+                } else {
+                    type = 1;
+                }
+            } catch (Exception e) {
+            }
+
+            Usuario user = new Usuario(
+                    request.getParameter("NomeCompleto"),
+                    request.getParameter("CPF"),
+                    request.getParameter("Email"),
+                    request.getParameter("Telefone"),
+                    type,
+                    request.getParameter("Rua"),
+                    request.getParameter("Numero"),
+                    request.getParameter("Complemento"),
+                    request.getParameter("Bairro"),
+                    request.getParameter("CEP"),
+                    request.getParameter("Cidade"),
+                    request.getParameter("Estado")
             );
 
             if (tipo.equals("inclusao")) {
                 try {
-                    ProdutoModel.InserirProduto(produto);
+                    user.setSenha(request.getParameter("Senha"));
+                    GerenteModel.InserirUsuario(user);
                     request.setAttribute("hidden", true);
-                    request.setAttribute("produtos", ProdutoModel.ListarProdutos());
-                    request.setAttribute("categorias", CategoriaModel.ListarCategorias());
-                    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Funcionario/CadastroProduto.jsp");
+                    request.setAttribute("usuarios", GerenteModel.ListarUsuarios());
+                    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Gerente/CadastroFuncionariosGerentes.jsp");
                     dispatcher.forward(request, response);
                 } catch (DAOException ex) {
-                    request.setAttribute("erro", "Erro ao carregar tela produtos " + ex);
+                    request.setAttribute("erro", "Erro ao carregar tela usuarios " + ex);
                     RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
                     dispatcher.forward(request, response);
                 }
-            }else{
+            } else {
                 try {
-                    ProdutoModel.atualizarProduto(produto);
+                    GerenteModel.atualizarUsuario(user);
                     request.setAttribute("hidden", true);
-                    request.setAttribute("produtos", ProdutoModel.ListarProdutos());
-                    request.setAttribute("categorias", CategoriaModel.ListarCategorias());
-                    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Funcionario/CadastroProduto.jsp");
+                    request.setAttribute("usuarios", GerenteModel.ListarUsuarios());
+                    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Gerente/CadastroFuncionariosGerentes.jsp");
                     dispatcher.forward(request, response);
                 } catch (DAOException ex) {
                     request.setAttribute("erro", "Erro ao carregar tela produtos " + ex);
@@ -98,23 +96,35 @@ public class ProdutoServelet extends HttpServlet {
                     dispatcher.forward(request, response);
                 }
             }
-        } else if (method.equals("adicionar")) {
+
+        } else if (method.equals("editar")) {
             try {
-                request.setAttribute("produtos", ProdutoModel.ListarProdutos());
-                request.setAttribute("categorias", CategoriaModel.ListarCategorias());
+                request.setAttribute("usuarios", GerenteModel.ListarUsuarios());
+                request.setAttribute("hidden", false);
+                String index = (String) request.getParameter("index");
+                request.setAttribute("usuarioEdicao", GerenteModel.BuscarUsuarios(index));
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Gerente/CadastroFuncionariosGerentes.jsp");
+                dispatcher.forward(request, response);
             } catch (DAOException ex) {
                 request.setAttribute("erro", "Erro ao carregar tela produtos " + ex);
                 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
                 dispatcher.forward(request, response);
             }
+        } else if (method.equals("adicionar")) {
+            try {
+                request.setAttribute("usuarios", GerenteModel.ListarUsuarios());
+            } catch (DAOException ex) {
+                request.setAttribute("erro", "Erro ao carregar tela usuarios " + ex);
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+                dispatcher.forward(request, response);
+            }
             request.setAttribute("hidden", false);
             request.setAttribute("tipo", "inclusao");
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Funcionario/CadastroProduto.jsp");
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Gerente/CadastroFuncionariosGerentes.jsp");
             dispatcher.forward(request, response);
         } else {
 
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

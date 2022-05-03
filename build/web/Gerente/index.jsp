@@ -1,8 +1,3 @@
-<%-- 
-    Document   : index
-    Created on : 28/04/2022, 15:28:00
-    Author     : Iury
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -12,6 +7,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1><a href="${pageContext.request.contextPath}/GerenteServlet?method=listar">Alteração de usuarios</a></h1>
+        
     </body>
 </html>

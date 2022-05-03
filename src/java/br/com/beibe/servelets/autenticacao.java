@@ -56,7 +56,7 @@ public class autenticacao extends HttpServlet {
                     response.sendRedirect(request.getContextPath() + "/Funcionario/index.jsp");
                 }
                 if (user.getTipo() == 3) { //Gerente 
-                    response.sendRedirect(request.getContextPath() + "/Gerente/index.jsp");
+                    response.sendRedirect(request.getContextPath() + "/Gerente/Index.jsp");
                 }
             } else {
                 request.setAttribute("erro", "usuário ou senha inválidos.");
@@ -81,7 +81,7 @@ public class autenticacao extends HttpServlet {
                     request.getParameter("Cidade"),
                     request.getParameter("Estado")
             );
-            //if(Autenticacao.validarUser(user).isEmpty()){
+            
             
             try {
                 Autenticacao.register(user);

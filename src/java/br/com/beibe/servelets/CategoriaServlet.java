@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author Rafael Kulka
  */
 @WebServlet(name = "Categoria", urlPatterns = {"/Categoria"})
-public class CategoriaServelet extends HttpServlet {
+public class CategoriaServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
