@@ -330,6 +330,8 @@
     <script src="script.js"></script>
     <script>
         document.getElementById("cadastro").hidden = ${requestScope.hidden};
+        
+        
 
         function Edit() {
             document.getElementById("cadastro").hidden = false;
