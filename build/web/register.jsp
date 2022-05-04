@@ -1,4 +1,4 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=ISO-8859-1" language="java" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
@@ -36,7 +36,7 @@
                                        
                                 
                             </div>
-                            <button class="btn btn-color px-5 w-50 mb-3">Buscar</button>
+                            
 
                             <div class="mb-3">
                                 <input type="text" class="form-control" id="Rua" aria-describedby="emailHelp" name="Rua"

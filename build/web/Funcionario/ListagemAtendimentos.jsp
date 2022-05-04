@@ -1,6 +1,7 @@
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=ISO-8859-1" language="java" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page isELIgnored="false" %> 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -232,7 +233,7 @@
             </c:redirect>
         </c:if>
 
-        <c:if test="${sessionScope.usuario.tipo != 2}" >
+<c:if test="${sessionScope.usuario.tipo == 1 }" >
             <c:redirect url="/logout.jsp">
                 <c:param name="erro" value="Acesso negado." />
             </c:redirect>   
@@ -299,7 +300,7 @@
                     <c:forEach items="${requestScope.atendimentos}" var="atendimento" varStatus="loop">
                         <tr>
                             <th scope="row">${loop.count}</th>
-                            <td><c:out value="${atendimento.data}"/></td>
+                            <td><fmt:formatDate value="${atendimento.data}" pattern="dd/MM/yyyy" /></td>
                             <td><c:out value="${atendimento.cliente.nome}"/></td>
                             <td><c:out value="${atendimento.situacaoAtendimento}"/></td>
                             <td><c:out value="${atendimento.produto.nome}"/></td>

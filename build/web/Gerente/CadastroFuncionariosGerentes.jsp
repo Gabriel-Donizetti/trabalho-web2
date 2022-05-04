@@ -4,7 +4,7 @@
     Author     : Rafael Kulka
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=ISO-8859-1" language="java" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page isELIgnored="false" %> 
 <!DOCTYPE html>
@@ -248,31 +248,30 @@
 <div class="l-navbar" id="nav-bar">
     <nav class="nav">
         <div>
-            <a href="#" class="nav_logo"> 
-                <i class='bx bx-layer nav_logo-icon'></i> 
+            <a href="#" class="nav_logo">
+                <i class='bx bx-layer nav_logo-icon'></i>
                 <span class="nav_logo-name">BEIBE</span> </a>
-            <div class="active nav_list"> 
-                <a href="CadastroFuncionáriosGerentes.jsp" class="nav_link"> 
-                    <i class='bx bx-user nav_icon'></i> 
-                    <span class="nav_name"><img src="icon/CadastroFuncionáriosGerentes.png" width="20" class="inverter" height="20" alt="Cadastro de usuários" title="Cadastro de Funcionários/Gerentes"></span> 
-                </a> 
-                <a href="ListagemAtendimentosAberto.jsp" class="nav_link">
-                    <i class='bx bx-message-square-detail nav_icon'></i> 
-                    <span class="nav_name"><img src="icon/list.png" width="20" class="inverter" height="20" alt="Listagem de todos os atendimentos em Aberto" title="Listagem de todos os atendimentos em Aberto"></span> 
-                </a> 
-                <a href="ListagemAtendimentos.jsp" class="nav_link"> 
-                    <i class='bx bx-bookmark nav_icon'></i> 
-                    <span class="nav_name"><img src="icon/listchecked.png" width="20" class="inverter" height="20" alt="Listagem de todos os atendimentos" title="Listagem de todos os atendimentos"></span> 
-                </a> 
-                <a href="Relatorios.jsp" class="nav_link"> 
-                    <i class='bx bx-folder nav_icon'></i> 
-                    <span class="nav_name"><img src="icon/Relatorios.png" width="20" class="inverter" height="20" alt="Relatórios" title="Relatórios"></span> 
-                </a> 
+            <div class="nav_list">
+                <a href="${pageContext.request.contextPath}/GerenteServlet?method=listar" class="active nav_link">
+                    <i class='bx bx-user nav_icon'></i>
+                    <span class="nav_name"><img src="https://cdn-icons-png.flaticon.com/512/2521/2521856.png" width="25" class="inverter" height="25"
+                                                alt="Editar Usuários" title="Editar Usuários"></span>
+                </a>
+                <a href="${pageContext.request.contextPath}/Atendimento?method=listarAtendimentos" class=" nav_link">
+                    <i class='bx bx-folder nav_icon'></i>
+                    <span class="nav_name"><img src="https://cdn-icons-png.flaticon.com/512/6571/6571852.png" width="25" class="inverter" height="25"
+                                                alt="Listagem de todos os atendimentos" title="Listagem de todos os atendimentos"></span>
+                </a>
+                <a href="${pageContext.request.contextPath}/Atendimento?method=listarAtendimentosAbertos" class="nav_link">
+                    <i class='bx bx-folder nav_icon'></i>
+                    <span class="nav_name"><img src="https://cdn-icons-png.flaticon.com/512/484/484270.png" width="25" class="inverter" height="25"
+                                                alt="Listagem de todos os atendimentos" title="Listagem de todos os atendimentos em aberto"></span>
+                </a>
             </div>
         </div>
-        <a href="logout.jsp" class="nav_link"> 
+        <a href="${pageContext.request.contextPath}/logout.jsp" class="nav_link"> 
             <i class='bx bx-log-out nav_icon'></i> 
-            <span class="nav_name"><img src="icon/Logout.png" width="20" class="inverter" height="20" alt="Logout" title="Logout"></span> 
+            <span class="nav_name"><img src="https://cdn-icons.flaticon.com/png/512/3889/premium/3889524.png?token=exp=1651591278~hmac=8958520d13e289d385a152ae41417dad" width="20" class="inverter" height="20" alt="Logout" title="Logout"></span> 
         </a>
     </nav>
 </div>
@@ -291,7 +290,6 @@
             </tr>
         </thead>
         <tbody>
-
             <c:forEach items="${requestScope.usuarios}" var="usuario" varStatus="loop">
                 <tr>
                     <th scope="row">${loop.count}</th>
@@ -304,10 +302,10 @@
             </c:forEach>
         </tbody>
     </table>
-                <form action="${pageContext.request.contextPath}/GerenteServlet?method=adicionar" method="post">
-                <button type="submit" class="btn btn-primary">Adicionar novo</button>
-            </form>
-    
+    <form action="${pageContext.request.contextPath}/GerenteServlet?method=adicionar" method="post">
+        <button type="submit" class="btn btn-primary">Adicionar novo</button>
+    </form>
+
     <div id="cadastro">
         <h4>Cadastro</h4>
         <form action="${pageContext.request.contextPath}/GerenteServlet?method=salvar&tipo=${requestScope.tipo}" method="post">
@@ -336,26 +334,22 @@
                 </div>
                 <label for="exampleFormControlSelect1">Telefone:</label>
                 <input type="tel" name="Telefone" id="" class="form-control" value="${requestScope.usuarioEdicao.telefone}">
-                
-                
+
                 <c:if test="${param.method == 'adicionar'}">
                     <label for="exampleFormControlSelect1">Senha</label>
                     <input type="password" name="Senha" id="" class="form-control" value="">
                     <label for="exampleFormControlSelect1">Tipo:</label><br>
-                 <select class="form-select"  name="Tipo" id="ProdutoCategoria">
-                     <option var="2" selected="">Funcionario</option>
-                     <option var="3">Gerente</option>
-                </select>
-                 <br>
+                    <select class="form-select"  name="Tipo" id="ProdutoCategoria">
+                        <option var="2" selected="">Funcionario</option>
+                        <option var="3">Gerente</option>
+                    </select>
+                    <br>
                 </c:if>
-                 <br>
+                <br>
                 <button type="submit" class="btn btn-primary">Salvar</button>
             </div>
         </form>
-
     </div>
-
-
 </div>
 
 <div id="meuModal" class="modal fade" role="dialog">
@@ -388,11 +382,7 @@
 
 <script src="script.js"></script>
 <script>
-        document.getElementById("cadastro").hidden = ${requestScope.hidden};
-
-        //function Edit() {
-//                        document.getElementById("cadastro").hidden = false;
-        //                 }
+    document.getElementById("cadastro").hidden = ${requestScope.hidden};
 
 </script>
 </body>
