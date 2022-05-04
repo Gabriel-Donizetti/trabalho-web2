@@ -5,21 +5,19 @@
             <url>src/java/br/com/beibe/beans/Atendimento.java</url>
             <bookmark id="1">
                 <name/>
-                <line>51</line>
+                <line>61</line>
                 <key/>
             </bookmark>
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/rafae/Documents/NetBeansProjects/trabalho-web2/src/java/br/com/beibe/model/AtendimentoOperacoes.java</file>
-            <file>file:/C:/Users/rafae/Documents/NetBeansProjects/trabalho-web2/src/java/br/com/beibe/dao/AtendimentoDAO.java</file>
-            <file>file:/C:/Users/rafae/Documents/NetBeansProjects/trabalho-web2/src/java/br/com/beibe/dao/ProdutoDAO.java</file>
-            <file>file:/C:/Users/rafae/Documents/NetBeansProjects/trabalho-web2/web/Cliente/ListarAtendimentos.jsp</file>
+            <file>file:/C:/Users/rafae/Documents/NetBeansProjects/trabalho-web2/src/java/br/com/beibe/beans/Usuario.java</file>
+            <file>file:/C:/Users/rafae/Documents/NetBeansProjects/trabalho-web2/src/java/br/com/beibe/servelets/GerenteServlet.java</file>
+            <file>file:/C:/Users/rafae/Documents/NetBeansProjects/trabalho-web2/web/Gerente/CadastroFuncionariosGerentes.jsp</file>
+            <file>file:/C:/Users/rafae/Documents/NetBeansProjects/trabalho-web2/src/java/br/com/beibe/dao/UsuarioDAO.java</file>
             <file>file:/C:/Users/rafae/Documents/NetBeansProjects/trabalho-web2/src/java/br/com/beibe/model/ProdutoModel.java</file>
-            <file>file:/C:/Users/rafae/Documents/NetBeansProjects/trabalho-web2/web/Cliente/CriarAtendimento.jsp</file>
-            <file>file:/C:/Users/rafae/Documents/NetBeansProjects/trabalho-web2/src/java/br/com/beibe/servelets/AtendimentoServelet.java</file>
-            <file>file:/C:/Users/rafae/Documents/NetBeansProjects/trabalho-web2/src/java/br/com/beibe/beans/Atendimento.java</file>
+            <file>file:/C:/Users/rafae/Documents/NetBeansProjects/trabalho-web2/src/java/br/com/beibe/model/GerenteModel.java</file>
         </group>
     </open-files>
 </project-private>

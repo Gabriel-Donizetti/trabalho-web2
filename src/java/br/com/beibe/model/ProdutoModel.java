@@ -46,8 +46,7 @@ public class ProdutoModel {
             dao.atualizar(p);
         } catch (Exception exc) {
             throw new DAOException("Erro ao atualizar produto: " + exc);
-        }
-        //return retorno;
+        }        
     }
 
     public static void InserirProduto(Produto p) throws DAOException {

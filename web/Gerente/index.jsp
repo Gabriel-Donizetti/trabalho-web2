@@ -1,10 +1,6 @@
-<%-- 
-    Document   : index
-    Created on : 28/04/2022, 15:28:00
-    Author     : Iury
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page isELIgnored="false" %> 
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -12,6 +8,18 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+         <c:if test="${empty sessionScope.usuario.nome}" >
+            <c:redirect url="/index.jsp">
+                <c:param name="erro" value="Sessão expirou" />
+            </c:redirect>
+        </c:if>
+
+        <c:if test="${sessionScope.usuario.tipo != 3}" >
+            <c:redirect url="/logout.jsp">
+                <c:param name="erro" value="Acesso negado." />
+            </c:redirect>   
+        </c:if>
+        
+        <c:redirect url="/GerenteServlet?method=listar"/> <!--colocar aberto-->
     </body>
 </html>

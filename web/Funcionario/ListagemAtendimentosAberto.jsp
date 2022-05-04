@@ -232,7 +232,7 @@
             </c:redirect>
         </c:if>
 
-        <c:if test="${sessionScope.usuario.tipo != 2}" >
+        <c:if test="${sessionScope.usuario.tipo == 1 }" >
             <c:redirect url="/logout.jsp">
                 <c:param name="erro" value="Acesso negado." />
             </c:redirect>   
