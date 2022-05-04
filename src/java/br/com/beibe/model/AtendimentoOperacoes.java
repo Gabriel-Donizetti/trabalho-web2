@@ -91,4 +91,13 @@ public class AtendimentoOperacoes {
         }
     }
 
+    public static void AtenderAtendimento(int index, String solucao) throws DAOException {
+        try (ConnectionFactory factory = new ConnectionFactory()) {
+            AtendimentoDAO dao = new AtendimentoDAO(factory.getConnection());
+            dao.AtenderAtendimento(index,solucao);
+        } catch (Exception exc) {
+            throw new DAOException("Erro ao atender atendimento: " + exc);
+        }
+    }
+
 }

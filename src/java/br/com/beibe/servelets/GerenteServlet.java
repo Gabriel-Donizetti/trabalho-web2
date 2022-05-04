@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(name = "GerenteServlet", urlPatterns = {"/GerenteServlet"})
 public class GerenteServlet extends HttpServlet {
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String method = (String) request.getParameter("method");
@@ -80,6 +81,7 @@ public class GerenteServlet extends HttpServlet {
                     request.setAttribute("usuarios", GerenteModel.ListarUsuarios());
                     RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Gerente/CadastroFuncionariosGerentes.jsp");
                     dispatcher.forward(request, response);
+
                 } catch (DAOException ex) {
                     request.setAttribute("erro", "Erro ao carregar tela produtos " + ex);
                     RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");

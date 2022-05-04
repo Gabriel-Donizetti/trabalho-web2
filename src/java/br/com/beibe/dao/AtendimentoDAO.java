@@ -27,6 +27,8 @@ public class AtendimentoDAO {
     private static final String QUERY_INSERIR_ATENDIMENTO = "INSERT INTO BEIBE.Atendimento (CreateDate, Cliente, Situacao, Produto, TipoAtendimento, Descricao, Solucao) VALUES (NOW(),?,?,?, ? ,?,?)";
 
     private static final String QUERY_DELETAR_ATENDIMENTO = "DELETE FROM BEIBE.Atendimento WHERE ID = ? AND Situacao = 'Aberto'";
+    
+    private static final String QUERY_ATENDER_ATENDIMENTO = "UPDATE BEIBE.Atendimento SET SOLUCAO = ?, SITUACAO = 'Finalizado'  WHERE id = ?";
 
     private static final String QUERY_BUSCAR_TODOS_USUARIO = "SELECT \n"
             + "	CREATEDATE AS \"Atendimento-CreateDate\",   \n"
@@ -363,6 +365,15 @@ public class AtendimentoDAO {
             }
         } catch (SQLException e) {
             return null;
+        }
+    }
+    
+    public void AtenderAtendimento(int index, String solucacao) {
+        try (PreparedStatement st = con.prepareStatement(QUERY_ATENDER_ATENDIMENTO)) {
+            st.setString(1, solucacao);
+            st.setInt(2, index);
+            int i = st.executeUpdate();
+        } catch (SQLException e) {
         }
     }
     

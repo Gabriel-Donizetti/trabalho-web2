@@ -52,7 +52,7 @@ public class CategoriaServlet extends HttpServlet {
             CategoriaProduto categoria = new CategoriaProduto(
                     request.getParameter("Categoria")
             );
-
+            
             if (tipo.equals("inclusao")) {
                 try {
                     CategoriaModel.InserirCategoria(categoria);

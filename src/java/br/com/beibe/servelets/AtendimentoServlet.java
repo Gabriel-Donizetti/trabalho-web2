@@ -37,23 +37,23 @@ public class AtendimentoServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         if (request.getSession().getAttribute("usuario") == null) {
             request.setAttribute("erro", "Sessão expirou");
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
             dispatcher.forward(request, response);
         }
-        Usuario validar = (Usuario)request.getSession().getAttribute("usuario");
-        
+        Usuario validar = (Usuario) request.getSession().getAttribute("usuario");
+
         String path = "";
-        if(validar.getTipo() == 2){
+        if (validar.getTipo() == 2) {
             path = "Funcionario";
-        }else if(validar.getTipo() ==3){
+        } else if (validar.getTipo() == 3) {
             path = "Gerente";
-        } 
-        
+        }
+
         String method = (String) request.getParameter("method");
-        
+
         if (method.equals("deletar")) {
             String index = (String) request.getParameter("index");
             try {
@@ -138,6 +138,31 @@ public class AtendimentoServlet extends HttpServlet {
                 request.setAttribute("atendimentos", AtendimentoOperacoes.ListarAtendimentos(user.getCpf()));
                 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Cliente/ListarAtendimentos.jsp");
                 dispatcher.forward(request, response);
+            } catch (DAOException ex) {
+                request.setAttribute("erro", "Erro ao carregar atendimentos" + ex);
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+                dispatcher.forward(request, response);
+            }
+        } else if (method.equals("atender")) {
+            String index = (String) request.getParameter("index");
+            try {
+                request.setAttribute("atendimento", AtendimentoOperacoes.buscarAtendimento(Integer.parseInt(index)));
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Funcionario/Atendimento.jsp");
+                dispatcher.forward(request, response);
+            } catch (DAOException ex) {
+                request.setAttribute("erro", "Erro ao carregar atendimentos" + ex);
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+                dispatcher.forward(request, response);
+            }
+        } else if (method.equals("salvarAtendimento")) {
+            String index = (String) request.getParameter("index");
+            try {
+                AtendimentoOperacoes.AtenderAtendimento(Integer.parseInt(index), request.getParameter("solucao"));
+                
+               request.setAttribute("atendimentos", AtendimentoOperacoes.ListarTodosAtendimentos());
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/" + path + "/ListagemAtendimentos.jsp");
+                dispatcher.forward(request, response);
+                
             } catch (DAOException ex) {
                 request.setAttribute("erro", "Erro ao carregar atendimentos" + ex);
                 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");

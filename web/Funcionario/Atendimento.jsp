@@ -1,15 +1,10 @@
-
 <%@ page contentType="text/html; charset=ISO-8859-1" language="java" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@page isELIgnored="false" %> 
 <!DOCTYPE html>
-<html lang="pt-br">
+<html>
     <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Listagem de todos os atendimentos em Aberto</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Atendimento #${requestScope.atendimento.id}</title>
         <style>@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap");
 
             .loader {
@@ -218,7 +213,6 @@
                     padding-left: calc(var(--nav-width) + 188px)
                 }
             }
-
         </style>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -226,14 +220,14 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     </head>
     <body id="body-pd">
-        
+
         <c:if test="${empty sessionScope.usuario.nome}" >
             <c:redirect url="/index.jsp">
                 <c:param name="erro" value="Sessão expirou" />
             </c:redirect>
         </c:if>
 
-<c:if test="${sessionScope.usuario.tipo == 1 }" >
+        <c:if test="${sessionScope.usuario.tipo == 1 }" >
             <c:redirect url="/logout.jsp">
                 <c:param name="erro" value="Acesso negado." />
             </c:redirect>   
@@ -257,9 +251,9 @@
                         <a href="${pageContext.request.contextPath}/Categoria?method=listar" class="nav_link">
                             <i class='bx bx-message-square-detail nav_icon'></i>
                             <span class="nav_name"><img src="https://cdn-icons-png.flaticon.com/512/1077/1077340.png" width="25" class="inverter" height="25"
-                                                               alt="Cadastro de Categorias" title="Cadastro de Categorias"></span>
+                                                        alt="Cadastro de Categorias" title="Cadastro de Categorias"></span>
                         </a>
-                        <a href="${pageContext.request.contextPath}/Atendimento?method=listarAtendimentos" class="active nav_link">
+                        <a href="${pageContext.request.contextPath}/Atendimento?method=listarAtendimentos" class=" nav_link">
                             <i class='bx bx-folder nav_icon'></i>
                             <span class="nav_name"><img src="https://cdn-icons-png.flaticon.com/512/6571/6571852.png" width="25" class="inverter" height="25"
                                                         alt="Listagem de todos os atendimentos" title="Listagem de todos os atendimentos"></span>
@@ -271,48 +265,46 @@
                         </a>
                     </div>
                 </div>
-                 <a href="${pageContext.request.contextPath}/logout.jsp" class="nav_link"> 
-                <i class='bx bx-log-out nav_icon'></i> 
-                <span class="nav_name"><img src="https://cdn-icons.flaticon.com/png/512/3889/premium/3889524.png?token=exp=1651591278~hmac=8958520d13e289d385a152ae41417dad" width="20" class="inverter" height="20" alt="Logout" title="Logout"></span> 
-            </a>
+                <a href="${pageContext.request.contextPath}/logout.jsp" class="nav_link"> 
+                    <i class='bx bx-log-out nav_icon'></i> 
+                    <span class="nav_name"><img src="https://cdn-icons.flaticon.com/png/512/3889/premium/3889524.png?token=exp=1651591278~hmac=8958520d13e289d385a152ae41417dad" width="20" class="inverter" height="20" alt="Logout" title="Logout"></span> 
+                </a>
             </nav>
         </div>
-
-        <div class="height-100 bg-light">
-            <br><br><br>
-            <h4>Atendimentos todos atendimentos</h4>
-
+        <div class="height-100 bg-light"> 
+            <br>
+            <h3>Detalhes atendimento #${requestScope.atendimento.id}</h3>
             <table class="table">
                 <thead class="thead-dark">
                     <tr>
-                        <th scope="col">#</th>
                         <th scope="col">Data/Hora</th>
                         <th scope="col">Cliente</th>
                         <th scope="col">Situação do Atendimento</th>
                         <th scope="col">Produto</th>
                         <th scope="col">tipo do atendimento</th>
                         <th scope="col">Descrição</th>
-                        <th scope="col">Solução Apresentada</th>
-                        <th scope="col">Detalhes</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <c:forEach items="${requestScope.atendimentos}" var="atendimento" varStatus="loop">
-                        <tr>
-                            <th scope="row">${loop.count}</th>
-                            <td><fmt:formatDate value="${atendimento.data}" pattern="dd/MM/yyyy" /></td>
-                            <td><c:out value="${atendimento.cliente.nome}"/></td>
-                            <td><c:out value="${atendimento.situacaoAtendimento}"/></td>
-                            <td><c:out value="${atendimento.produto.nome}"/></td>
-                            <td><c:out value="${atendimento.tipoAtendimento.nome}"/></td>
-                            <td><c:out value="${atendimento.descricao}"/></td>
-                            <td><c:out value="${atendimento.solucao}"/></td>
-                            <td><a href="${pageContext.request.contextPath}/Atendimento?method=procurar&index=${atendimento.id}">Abrir</a></td>
-                        </tr>
-                    </c:forEach>
-                </tbody>
-            </table>
+                    <tr>
+                        <td><c:out value="${requestScope.atendimento.data}"/></td>
+                        <td><c:out value="${requestScope.atendimento.cliente.nome}"/></td>
+                        <td><c:out value="${requestScope.atendimento.situacaoAtendimento}"/></td>
+                        <td><c:out value="${requestScope.atendimento.produto.nome}"/></td>
+                        <td><c:out value="${requestScope.atendimento.tipoAtendimento.nome}"/></td>
+                        <td><c:out value="${requestScope.atendimento.descricao}"/></td> 
+                    </tr>
+                </tbody> 
+            </table>     
+
+            <form action="${pageContext.request.contextPath}/Atendimento?method=salvarAtendimento&index=${requestScope.atendimento.id}" method="post"> 
+                <div class="form-group">
+                    <label for="exampleFormControlSelect1">Atendimento:</label>
+                    <input type="text" name="solucao" class="form-control" id="" value="${requestScope.atendimento.solucao}">
+                    <br>
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                </div>
+            </form>
         </div>
-        <script src="script.js"></script>
     </body>
 </html>
