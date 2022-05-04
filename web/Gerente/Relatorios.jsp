@@ -59,7 +59,7 @@
         <div class="height-100 bg-light">
             <br><br><br><br>
            <h4>Relatórios</h4>
-           <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#loading">Relatório de Funcionários</button><br><br>
+           <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#loading"><a href="${pageContext.request.contextPath}/GeradorRelatorio?method=reportfuncionarios">Relatório Funcionários</button><br><br>
            <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#loading">Relatório de Produtos Mais Reclamados</button><br><br>
            <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#AtendimentosEmAberto">Relatório de Atendimentos em Aberto Por Data</button><br><br>
            <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#reclamacoes">Relatório de Reclamações</button>
