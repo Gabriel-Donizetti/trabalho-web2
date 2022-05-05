@@ -56,31 +56,63 @@ public class GeradorRelatorio extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String method = (String) request.getParameter("method");
-        try (ConnectionFactory factory = new ConnectionFactory()) {                
+        try (ConnectionFactory factory = new ConnectionFactory()) {
             // Host onde o servlet esta executando 
             String host = "http://" + request.getServerName() + ":" + request.getServerPort();
             // Caminho contextualizado do relatório compilado
-            String jasper = request.getContextPath() + "/" + method + ".jasper" ; 
+            String jasper = request.getContextPath() + "/" + method + ".jasper";
             // URL para acesso ao relatório
             URL jasperURL = new URL(host + jasper);
             // Parâmetros do relatório
-            HashMap params = new HashMap();
-            // Geração do relatório
-            byte[] bytes = JasperRunManager.runReportToPdf(jasperURL.openStream(), params, factory.getConnection());
-            if (bytes != null) {
-                // A página será mostrada em PDF
-                response.setContentType("application/pdf");
-                // EnviaoPDF paraoCliente
-                OutputStream ops = response.getOutputStream();
-                ops.write(bytes);
+
+            if (method.equals("finalizadas")) {
+                String status = "Aberto";
+                HashMap<String,Object> params = new HashMap<String,Object>();
+                params.put("STATUS", status);
+                byte[] bytes = JasperRunManager.runReportToPdf(jasperURL.openStream(), params, factory.getConnection());
+                if (bytes != null) {
+                    // A página será mostrada em PDF
+                    response.setContentType("application/pdf");
+                    // EnviaoPDF paraoCliente
+                    OutputStream ops = response.getOutputStream();
+                    ops.write(bytes);
+                }
+
+            } else if (method.equals("atendimentospordata")) {
+                java.util.Date datainicial = new java.util.Date();
+                java.util.Date datafinal = new java.util.Date();
+                HashMap<String,Object> params = new HashMap<String,Object>();
+                params.put("DATA_INICIO", datainicial);
+                params.put("DATA_FIM", datafinal);
+                byte[] bytes = JasperRunManager.runReportToPdf(jasperURL.openStream(), params, factory.getConnection());
+                if (bytes != null) {
+                    // A página será mostrada em PDF
+                    response.setContentType("application/pdf");
+                    // EnviaoPDF paraoCliente
+                    OutputStream ops = response.getOutputStream();
+                    ops.write(bytes);
+                }
+
+            } else {
+                HashMap params = new HashMap();
+                byte[] bytes = JasperRunManager.runReportToPdf(jasperURL.openStream(), params, factory.getConnection());
+                if (bytes != null) {
+                    // A página será mostrada em PDF
+                    response.setContentType("application/pdf");
+                    // EnviaoPDF paraoCliente
+                    OutputStream ops = response.getOutputStream();
+                    ops.write(bytes);
+                }
             }
+
+            // Geração do relatório
         } // Fechamento do try
         catch (DAOException e) {
-            request.setAttribute("mensagem", "Erro de DAO : " + e.getMessage());
+            request.setAttribute("Error", "Erro de DAO : " + e.getMessage());
             request.getRequestDispatcher("erro.jsp").
-                                            forward(request, response);
+                    forward(request, response);
         } catch (JRException e) {
-            request.setAttribute("mensagem", "Erro no Jasper: " + e.getMessage());
+            request.setAttribute("Error", "Erro no Jasper: " + e.getMessage());
             request.getRequestDispatcher("erro.jsp").forward(request, response);
         }
     }
